@@ -61,7 +61,7 @@ export default function ContactPage() {
       city: "Patna Head Office",
       address:
         "Boring Road Crossing, Near Bank of Baroda, Patna, Bihar - 800001",
-      phone: "+91 9135800500",
+      phone: "+91 9958405406",
     },
     {
       city: "Delhi-NCR Branch Office",
@@ -232,7 +232,7 @@ export default function ContactPage() {
 
             <div className="space-y-4">
               <a
-                href="tel:+919135800500"
+                href="tel:+919958405406"
                 className="flex items-center gap-4 p-3 bg-background border border-border hover:border-primary/20 rounded-2xl transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
@@ -243,13 +243,13 @@ export default function ContactPage() {
                     Main Support Number
                   </p>
                   <p className="font-outfit font-extrabold text-sm text-text_primary">
-                    +91 9135800500
+                    +91 9958405406
                   </p>
                 </div>
               </a>
 
               <a
-                href="mailto:admission.providers@gmail.com"
+                href="mailto:Atulkasana777@gmail.com"
                 className="flex items-center gap-4 p-3 bg-background border border-border hover:border-primary/20 rounded-2xl transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
@@ -260,13 +260,13 @@ export default function ContactPage() {
                     Official Mail Helpdesk
                   </p>
                   <p className="font-outfit font-extrabold text-sm text-text_primary">
-                    admission.providers@gmail.com
+                    Atulkasana777@gmail.com
                   </p>
                 </div>
               </a>
 
               <a
-                href="https://wa.me/919473335050"
+                href="https://wa.me/919958405406"
                 target="_blank"
                 className="flex items-center gap-4 p-3 bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/30 rounded-2xl transition-all"
               >

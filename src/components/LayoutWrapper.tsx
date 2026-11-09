@@ -1937,7 +1937,7 @@ export default function LayoutWrapper({
 
             {/* WhatsApp Logo Button */}
             <a
-              href="https://wa.me/918585951111?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
+              href="https://wa.me/919958405406?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
               target="_blank"
               rel="noopener noreferrer"
               className="text-white p-1 hover:text-emerald-300 transition-colors flex items-center justify-center cursor-pointer"
@@ -3729,7 +3729,7 @@ export default function LayoutWrapper({
 
             {/* WhatsApp Banner */}
             <a
-              href="https://wa.me/918585951111?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
+              href="https://wa.me/919958405406?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-emerald-500 hover:bg-emerald-600 px-5 py-2.5 flex items-center justify-between text-white text-[10px] font-bold transition-all shadow-inner shrink-0 gap-2"
@@ -3831,7 +3831,7 @@ export default function LayoutWrapper({
       <AnimatePresence>
         {!isChatOpen && (
           <motion.a
-            href="https://wa.me/918585951111?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
+            href="https://wa.me/919958405406?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
             target="_blank"
             rel="noopener noreferrer"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -4179,7 +4179,7 @@ export default function LayoutWrapper({
                       <div className="flex flex-col sm:flex-row gap-2 mt-2 w-full">
                         {/* WhatsApp Button */}
                         <a
-                          href="https://wa.me/918585951111?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
+                          href="https://wa.me/919958405406?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 transition-colors text-white text-xs font-black uppercase tracking-wider shadow-sm"
@@ -4197,7 +4197,7 @@ export default function LayoutWrapper({
 
                         {/* Call Button */}
                         <a
-                          href="tel:+918585951111"
+                          href="tel:+919958405406"
                           className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-colors text-white text-xs font-black uppercase tracking-wider shadow-sm"
                         >
                           <svg

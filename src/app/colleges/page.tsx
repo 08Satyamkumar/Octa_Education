@@ -9842,7 +9842,7 @@ function CollegesListContent() {
               <div className="space-y-3">
                 {/* WhatsApp Option */}
                 <a
-                  href="https://wa.me/918585951111?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
+                  href="https://wa.me/919958405406?text=Hi%20Sarthi,%20I%20have%20a%20query%20about%20college%20admissions."
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsContactDrawerOpen(false)}
@@ -9870,7 +9870,7 @@ function CollegesListContent() {
 
                 {/* Direct Call Option */}
                 <a
-                  href="tel:+918585951111"
+                  href="tel:+919958405406"
                   onClick={() => setIsContactDrawerOpen(false)}
                   className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-orange-50 hover:bg-orange-100/70 border border-orange-100 text-orange-800 transition-all duration-200"
                 >

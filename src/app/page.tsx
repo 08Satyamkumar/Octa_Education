@@ -3445,7 +3445,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-3.5 max-w-md">
             {/* Admissions Helpline */}
             <a
-              href="tel:+918434555577"
+              href="tel:+919958405406"
               className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
@@ -3454,14 +3454,14 @@ export default function HomePage() {
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Admissions Helpline:{" "}
                 <span className="text-blue-600 font-sans">
-                  +91-8434555577
+                  +91-9958405406
                 </span>
               </span>
             </a>
 
             {/* Student Support */}
             <a
-              href="tel:+918434555599"
+              href="tel:+919958405406"
               className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
@@ -3470,14 +3470,14 @@ export default function HomePage() {
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Student Support:{" "}
                 <span className="text-blue-600 font-sans">
-                  +91-8434555599
+                  +91-9958405406
                 </span>
               </span>
             </a>
 
             {/* Email */}
             <a
-              href="mailto:info@octaeducation.com"
+              href="mailto:Atulkasana777@gmail.com"
               className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
@@ -3486,7 +3486,7 @@ export default function HomePage() {
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Email:{" "}
                 <span className="text-blue-600 font-sans font-extrabold uppercase">
-                  info@octaeducation.com
+                  Atulkasana777@gmail.com
                 </span>
               </span>
             </a>
