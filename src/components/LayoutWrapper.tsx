@@ -1820,21 +1820,31 @@ export default function LayoutWrapper({
         {/* ROW 1: TOP ROW (Logo, Wide Search Bar, Login/Sign Up) */}
         <div className="h-16 max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between gap-6">
           {/* Logo Section */}
-          {/* Logo Section (Official Brand Logo) */}
+          {/* Logo Section (World-Class Official Brand Lockup) */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 sm:gap-3 select-none hover:opacity-95 transition-all origin-left flex-shrink-0 group"
+            className="flex items-center gap-2 sm:gap-3 select-none hover:opacity-95 transition-all origin-left flex-shrink-0 group py-1"
           >
-            <img
-              src="/octa-logo.png"
-              alt="Octa Educational Consultants"
-              className="h-11 sm:h-12 md:h-14 w-auto object-contain rounded-lg transition-transform group-hover:scale-105"
-            />
-            <div className="hidden sm:flex flex-col justify-center">
-              <span className="font-outfit font-black text-lg md:text-xl tracking-wider text-white leading-tight drop-shadow-sm">
-                OCTA
-              </span>
-              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.16em] text-blue-200 uppercase leading-none mt-0.5">
+            {/* Emblem Icon (Large, Ultra-Crisp & Transparent) */}
+            <div className="relative flex items-center justify-center">
+              <img
+                src="/octa-emblem.png"
+                alt="Octa Educational Consultants"
+                className="h-11 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-105"
+              />
+            </div>
+
+            {/* Crisp Executive Typography - Visible on Mobile & Desktop */}
+            <div className="flex flex-col justify-center">
+              <div className="flex items-baseline tracking-normal">
+                <span className="font-outfit font-black text-xl sm:text-2xl md:text-[26px] text-white leading-none tracking-wider drop-shadow-sm">
+                  OC
+                </span>
+                <span className="font-outfit font-black text-xl sm:text-2xl md:text-[26px] text-[#4D9BE6] leading-none tracking-wider drop-shadow-sm">
+                  TA
+                </span>
+              </div>
+              <span className="text-[7.5px] sm:text-[8px] md:text-[9px] font-black tracking-[0.2em] text-[#FFA877] uppercase leading-none mt-1 drop-shadow-sm whitespace-nowrap">
                 Educational Consultants
               </span>
             </div>
@@ -3179,15 +3189,24 @@ export default function LayoutWrapper({
               <div className="flex items-center justify-between border-b border-border pb-4 mt-4">
                 <Link
                   href="/"
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2.5"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <img src="/octa-logo.png" alt="Octa Educational Consultants" className="h-9 w-auto object-contain rounded-md" />
+                  <img
+                    src="/octa-emblem.png"
+                    alt="Octa Educational Consultants"
+                    className="h-10 w-auto object-contain drop-shadow-sm"
+                  />
                   <div className="flex flex-col justify-center">
-                    <span className="font-outfit font-black text-sm tracking-tight text-slate-900 uppercase leading-tight">
-                      OCTA
-                    </span>
-                    <span className="text-[7px] font-bold tracking-widest text-blue-600 uppercase">
+                    <div className="flex items-baseline">
+                      <span className="font-outfit font-black text-lg text-slate-900 leading-none">
+                        OC
+                      </span>
+                      <span className="font-outfit font-black text-lg text-[#2563EB] leading-none">
+                        TA
+                      </span>
+                    </div>
+                    <span className="text-[7.5px] font-black tracking-[0.18em] text-[#FF7A29] uppercase mt-0.5 whitespace-nowrap">
                       Educational Consultants
                     </span>
                   </div>
@@ -3596,14 +3615,23 @@ export default function LayoutWrapper({
         {/* ── BOTTOM BAR ── */}
         <div className="border-t border-[#0a3a6b] bg-[#021f3d]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Left: Logo (Pure White Brand Logo) */}
+            {/* Left: Logo (Octa Brand Logo) */}
             <div className="flex items-center gap-3 select-none py-1 shrink-0">
-              <img src="/octa-logo.png" alt="Octa Educational Consultants" className="h-10 md:h-12 w-auto object-contain rounded-md" />
+              <img
+                src="/octa-emblem.png"
+                alt="Octa Educational Consultants"
+                className="h-11 md:h-13 w-auto object-contain drop-shadow-sm"
+              />
               <div className="flex flex-col justify-center">
-                <span className="font-outfit font-black text-base md:text-lg tracking-wider text-white leading-tight">
-                  OCTA
-                </span>
-                <span className="text-[8px] font-bold tracking-[0.16em] text-blue-200 uppercase leading-none">
+                <div className="flex items-baseline">
+                  <span className="font-outfit font-black text-xl md:text-2xl text-white leading-none tracking-wide">
+                    OC
+                  </span>
+                  <span className="font-outfit font-black text-xl md:text-2xl text-[#4D9BE6] leading-none tracking-wide">
+                    TA
+                  </span>
+                </div>
+                <span className="text-[8px] md:text-[9px] font-black tracking-[0.2em] text-[#FFA877] uppercase leading-none mt-1 whitespace-nowrap">
                   Educational Consultants
                 </span>
               </div>
