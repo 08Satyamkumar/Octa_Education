@@ -2324,39 +2324,44 @@ export default function HomePage() {
       {/* BIHAR STUDENT CREDIT CARD SPOTLIGHT BANNER */}
       {/* Section Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200/80 to-transparent my-2" />
-      <section className="p-6 md:p-12 rounded-[28px] bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 text-white relative overflow-hidden shadow-[0_10px_35px_rgba(234,88,12,0.22)] border border-orange-500/35">
-        {/* Background Landmark Image Layer */}
+      <section className="p-6 md:p-12 rounded-[28px] bg-gradient-to-br from-[#1a234f] via-[#243068] to-[#141b3d] text-white relative overflow-hidden shadow-[0_15px_45px_rgba(20,26,58,0.35)] border border-blue-400/25">
+        {/* Background Landmark Image Layer (Increased opacity so the historic monuments shine through clearly) */}
         {biharBgs.map((bg, idx) => (
           <div 
             key={bg.src}
             className={`absolute inset-0 bg-cover bg-no-repeat pointer-events-none transition-opacity duration-1000 ease-in-out z-0 ${bg.position} ${
-              idx === activeBiharBg ? "opacity-[0.25]" : "opacity-0"
+              idx === activeBiharBg ? "opacity-[0.45]" : "opacity-0"
             }`}
             style={{ backgroundImage: `url('${bg.src}')` }}
           />
         ))}
         
-        {/* Dark radial glow layer on left to ensure high text contrast */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(0,0,0,0.35),transparent_60%)] z-0" />
-        
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.1),transparent_35%)] z-0" />
+        {/* Luminous Royal Navy & Azure Glassmorphism Tint Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#141b3d]/90 via-[#1e2756]/65 to-[#141b3d]/85 z-0 pointer-events-none" />
 
-        {/* Shimmer Sheen Reflection Sweep Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[50%] h-[200%] pointer-events-none animate-shimmer-sheen z-10" />
+        {/* Ambient atmospheric glow orbs */}
+        <div className="absolute -top-16 -right-16 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none z-0" />
+        <div className="absolute -bottom-16 -left-16 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl pointer-events-none z-0" />
+        
+        {/* Contrast protection for left typography */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(15,23,42,0.4),transparent_65%)] z-0 pointer-events-none" />
+
+        {/* Shimmer Sheen Reflection Sweep Overlay (World-class continuous shine) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent w-[50%] h-[200%] pointer-events-none animate-shimmer-sheen z-10" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
           <div className="lg:col-span-8 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-orange-200 text-xs font-semibold">
-              <ShieldCheck className="w-4 h-4 text-orange-300" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cyan-200 text-xs font-semibold shadow-sm">
+              <ShieldCheck className="w-4 h-4 text-cyan-400" />
               Govt Scheme Admission Support
             </div>
-            <h2 className="font-outfit font-black text-2xl md:text-4xl leading-tight">
+            <h2 className="font-outfit font-black text-2xl md:text-4xl leading-tight text-white drop-shadow-sm">
               Higher Studies Admission Under <br />
-              <span className="underline decoration-orange-300 underline-offset-8">
+              <span className="underline decoration-cyan-400 decoration-2 underline-offset-8">
                 Bihar Student Credit Card
               </span>
             </h2>
-            <p className="text-xs md:text-sm text-orange-50/90 max-w-xl leading-relaxed">
+            <p className="text-xs md:text-sm text-blue-50/90 max-w-xl leading-relaxed font-medium">
               Get direct counseling for medical, B.Tech, MBA, pharmacy, and
               nursing courses fully covered under the Bihar Student Credit Card
               scheme. Zero upfront self-finance tuition fee options.
@@ -2367,23 +2372,23 @@ export default function HomePage() {
                   setModalType("credit-card");
                   setShowInquiryModal(true);
                 }}
-                className="px-5 py-2.5 bg-white text-orange-700 hover:bg-orange-50 font-black text-xs rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-orange-950/20 active:scale-95 cursor-pointer"
+                className="px-5 py-2.5 bg-white text-[#1a234f] hover:bg-blue-50 hover:text-blue-900 font-black text-xs rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-black/25 active:scale-95 cursor-pointer border border-white/40"
               >
                 Apply for Loan Guidance
               </button>
               <a
                 href="/bihar-student-credit-card-guidelines.pdf"
                 download="bihar-student-credit-card-guidelines.pdf"
-                className="flex items-center gap-2 px-5 py-2.5 border border-white/30 hover:border-white text-white hover:bg-white/10 font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-2 px-5 py-2.5 border border-white/30 hover:border-white text-white hover:bg-white/10 font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer backdrop-blur-sm"
               >
-                <FileText className="w-4 h-4" />
+                <FileText className="w-4 h-4 text-cyan-300" />
                 Download BSCC Guidelines PDF
               </a>
               <Link
                 href="/credit-card"
-                className="flex items-center gap-2 px-5 py-2.5 bg-orange-500/30 hover:bg-orange-500/50 border border-orange-400/40 hover:border-blue-500 text-white font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-2 px-5 py-2.5 bg-blue-600/40 hover:bg-blue-600/60 border border-blue-400/40 hover:border-blue-300 text-white font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer backdrop-blur-sm shadow-md shadow-blue-900/20"
               >
-                <GraduationCap className="w-4 h-4 text-orange-200" />
+                <GraduationCap className="w-4 h-4 text-cyan-300" />
                 View Scheme Details
               </Link>
             </div>
@@ -2391,18 +2396,18 @@ export default function HomePage() {
 
           {/* Right Visual block containing Shield and Premium BIHAR text */}
           <div className="lg:col-span-4 flex flex-col items-center lg:items-end justify-center gap-4 pt-6 lg:pt-0 border-t border-white/10 lg:border-t-0">
-            <div className="relative w-32 h-32 bg-white/10 backdrop-blur-md border border-white/15 rounded-full flex items-center justify-center shadow-xl shadow-orange-950/20 group/icon">
-              <div className="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 animate-ping" />
-              <ShieldCheck className="w-14 h-14 text-orange-200 group-hover/icon:scale-110 transition-transform duration-300" />
+            <div className="relative w-32 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-2xl shadow-blue-950/40 group/icon">
+              <div className="absolute inset-0 rounded-full bg-cyan-400/10 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 animate-ping" />
+              <ShieldCheck className="w-14 h-14 text-cyan-300 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)] group-hover/icon:scale-110 transition-transform duration-300" />
             </div>
             <div className="text-center lg:text-right space-y-0.5">
-              <span className="block font-outfit text-[9px] font-black uppercase tracking-[0.35em] text-orange-200/80">
+              <span className="block font-outfit text-[9px] font-black uppercase tracking-[0.35em] text-blue-200/80">
                 STATE OF
               </span>
-              <span className="block font-outfit text-2xl font-black uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_10px_rgba(234,88,12,0.65)]">
+              <span className="block font-outfit text-2xl font-black uppercase tracking-[0.2em] text-white drop-shadow-[0_2px_15px_rgba(37,99,235,0.8)]">
                 BIHAR
               </span>
-              <div className="h-0.5 w-12 bg-orange-400 mx-auto lg:ml-auto lg:mr-0 rounded-full mt-1.5" />
+              <div className="h-1 w-16 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto lg:ml-auto lg:mr-0 rounded-full mt-1.5 shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
             </div>
           </div>
         </div>
