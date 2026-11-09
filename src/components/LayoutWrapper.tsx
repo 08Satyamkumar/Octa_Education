@@ -3876,20 +3876,31 @@ export default function LayoutWrapper({
               </button>
 
               {/* LEFT SIDE PANEL (Saffron Banner - col-span-5) */}
-              <div className="col-span-12 md:col-span-5 bg-gradient-to-br from-[#f97e2f] to-[#ffaa66] text-white p-6 md:p-8 flex flex-col justify-between relative overflow-hidden select-none">
+              <div className="col-span-12 md:col-span-5 bg-gradient-to-br from-[#343c68] via-[#242b4d] to-[#161a30] text-white p-6 md:p-8 flex flex-col justify-between relative overflow-hidden select-none border-r border-white/10">
                 {/* Background decorative blobs */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
-                <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-black/10 rounded-full blur-2xl" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
+                <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-black/20 rounded-full blur-2xl" />
 
                 {/* Left Top Header */}
                 <div className="space-y-6 z-10">
                   {/* Official Octa Education Logo */}
-                  <div className="flex flex-col items-start select-none pb-4 scale-110 origin-left">
-                    <img
-                      src="/logo.png?v=3"
-                      alt="Octa Education"
-                      className="h-16 w-auto object-contain"
-                    />
+                  <div className="flex items-center gap-3 select-none pb-4">
+                    <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+                      <img
+                        src="/octa-emblem.png"
+                        alt="Octa Education"
+                        className="w-full h-full object-contain filter drop-shadow"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex items-center tracking-tight leading-none font-black font-outfit text-xl">
+                        <span className="text-white">OC</span>
+                        <span className="text-[#4D9BE6]">TA</span>
+                      </div>
+                      <span className="text-[8px] font-bold tracking-widest text-[#FFA877] uppercase leading-tight mt-0.5">
+                        Educational Consultants
+                      </span>
+                    </div>
                   </div>
 
                   <div className="space-y-3">

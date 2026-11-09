@@ -155,7 +155,7 @@ export default function WriteReviewPage() {
       <div className="flex items-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-black text-slate-500 hover:text-orange-500 uppercase tracking-wider transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-black text-slate-500 hover:text-blue-600 uppercase tracking-wider transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
@@ -163,38 +163,62 @@ export default function WriteReviewPage() {
       </div>
 
       {/* HERO SECTION / BANNER CARD */}
-      <section className="relative overflow-hidden rounded-[32px] border border-orange-200/40 shadow-md flex flex-col md:flex-row items-stretch bg-[#032b53] text-white min-h-[220px] md:min-h-[280px] py-8 md:py-12">
-        {/* Slanted Accent Panel (Solid Saffron matching Header exactly) */}
-        <div className="absolute top-0 left-0 bottom-0 w-[35%] bg-[#f47920] [clip-path:polygon(0_0,100%_0,82%_100%,0_100%)] hidden md:block z-10" />
+      <section className="relative overflow-hidden rounded-[32px] border border-blue-900/30 shadow-xl flex flex-col md:flex-row items-stretch bg-gradient-to-br from-[#0c1a30] via-[#162744] to-[#0c1a30] text-white min-h-[220px] md:min-h-[280px] py-8 md:py-12">
+        {/* Slanted Accent Panel (Executive Royal Navy Gradient) */}
+        <div className="absolute top-0 left-0 bottom-0 w-[36%] bg-gradient-to-br from-[#343c68] via-[#283058] to-[#1e2444] [clip-path:polygon(0_0,100%_0,82%_100%,0_100%)] hidden md:block z-10 shadow-2xl border-r border-white/10" />
 
         {/* Mobile Brand Accent */}
-        <div className="w-full h-24 bg-[#f47920] flex md:hidden items-center justify-center relative overflow-hidden z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15),transparent_60%)]" />
-          <img
-            src="/logo.png?v=3"
-            alt="Octa Education"
-            className="h-14 w-auto object-contain"
-          />
+        <div className="w-full py-5 bg-gradient-to-r from-[#343c68] via-[#283058] to-[#343c68] flex md:hidden items-center justify-center relative overflow-hidden z-10 border-b border-white/10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_65%)]" />
+          <div className="flex items-center gap-3 relative z-10">
+            <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+              <img
+                src="/octa-emblem.png"
+                alt="Octa Education"
+                className="w-full h-full object-contain filter drop-shadow"
+              />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center tracking-tight leading-none font-black font-outfit text-xl">
+                <span className="text-white">OC</span>
+                <span className="text-[#4D9BE6]">TA</span>
+              </div>
+              <span className="text-[9px] font-bold tracking-widest text-[#FFA877] uppercase leading-tight mt-0.5">
+                Educational Consultants
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Brand Logo Container on Left (Desktop) */}
-        <div className="absolute top-0 left-0 bottom-0 w-[32%] hidden md:flex flex-col items-center justify-center z-20 pl-8">
-          <img
-            src="/logo.png?v=3"
-            alt="Octa Education"
-            className="h-20 w-auto object-contain"
-          />
-          <span className="text-[9px] uppercase tracking-[0.25em] font-black text-white/90 mt-2">
-            Review & Reward
+        <div className="absolute top-0 left-0 bottom-0 w-[33%] hidden md:flex flex-col items-center justify-center z-20 pl-8">
+          <div className="relative w-20 h-20 mb-2 flex items-center justify-center">
+            <img
+              src="/octa-emblem.png"
+              alt="Octa Education"
+              className="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.35)]"
+            />
+          </div>
+          <div className="flex items-center tracking-tight leading-none font-black font-outfit text-2xl">
+            <span className="text-white">OC</span>
+            <span className="text-[#4D9BE6]">TA</span>
+          </div>
+          <span className="text-[10px] font-bold tracking-widest text-[#FFA877] uppercase mt-1">
+            Educational Consultants
           </span>
+          <div className="mt-3 px-3 py-0.5 rounded-full bg-white/10 border border-white/15">
+            <span className="text-[9px] uppercase tracking-[0.22em] font-extrabold text-blue-100">
+              Review & Reward
+            </span>
+          </div>
         </div>
 
         {/* Content Area */}
         <div className="flex-1 p-6 md:p-8 flex flex-col items-center justify-center gap-6 relative z-10 md:pl-[38%] text-center">
-          <div className="absolute right-0 bottom-0 w-44 h-44 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute right-0 bottom-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-3 max-w-xl">
-            <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-wider text-orange-200">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-wider text-blue-200">
               🏆 Earn Incentives For Your Voice
             </span>
             <h1 className="font-outfit font-black text-2xl md:text-4xl text-white leading-tight">

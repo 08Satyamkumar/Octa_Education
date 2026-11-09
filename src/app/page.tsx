@@ -1089,7 +1089,7 @@ export default function HomePage() {
       gradient: "from-orange-500 to-red-500",
       glow: "rgba(249,115,22,0.25)",
       bg: "from-orange-50 to-red-50 dark:from-orange-950/40 dark:to-red-950/30",
-      border: "hover:border-orange-400/60 dark:hover:border-orange-500/50",
+      border: "hover:border-blue-500/60 dark:hover:border-orange-500/50",
       badge:
         "bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300",
     },
@@ -1554,7 +1554,7 @@ export default function HomePage() {
                   .getElementById("explore-hub-section")
                   ?.scrollIntoView({ behavior: "smooth", block: "center" });
               }}
-              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-orange-400 group border-r border-white/20 cursor-pointer"
+              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-blue-500 group border-r border-white/20 cursor-pointer"
             >
               <MapPin className="w-5 h-5 md:w-6 md:h-6 text-orange-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300" />
               <span className="mt-2 font-outfit font-black text-[9.5px] md:text-[11px] text-white uppercase tracking-widest drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.9)]">
@@ -1571,7 +1571,7 @@ export default function HomePage() {
                   .getElementById("explore-hub-section")
                   ?.scrollIntoView({ behavior: "smooth", block: "center" });
               }}
-              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-orange-400 group border-r border-white/20 cursor-pointer"
+              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-blue-500 group border-r border-white/20 cursor-pointer"
             >
               <Award className="w-5 h-5 md:w-6 md:h-6 text-orange-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300" />
               <span className="mt-2 font-outfit font-black text-[9.5px] md:text-[11px] text-white uppercase tracking-widest drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.9)]">
@@ -1588,7 +1588,7 @@ export default function HomePage() {
                   .getElementById("explore-hub-section")
                   ?.scrollIntoView({ behavior: "smooth", block: "center" });
               }}
-              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-orange-400 group cursor-pointer"
+              className="relative flex flex-col items-center justify-center py-5 px-2 hover:bg-white/[0.12] active:bg-white/[0.18] transition-all text-center border-b-[3px] border-transparent hover:border-blue-500 group cursor-pointer"
             >
               <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-orange-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] group-hover:scale-110 group-hover:text-orange-300 transition-all duration-300" />
               <span className="mt-2 font-outfit font-black text-[9.5px] md:text-[11px] text-white uppercase tracking-widest drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.9)]">
@@ -1664,7 +1664,7 @@ export default function HomePage() {
                       .getElementById("cities-carousel-container")
                       ?.scrollBy({ left: -300, behavior: "smooth" })
                   }
-                  className="absolute -left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:bg-orange-500 hover:text-white hover:border-orange-500 active:bg-orange-600 active:text-white active:border-orange-600 active:shadow-[0_0_15px_rgba(249,115,22,0.7)] transition-all z-30 opacity-100 active:scale-95 cursor-pointer"
+                  className="absolute -left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:bg-blue-600 hover:text-white hover:border-orange-500 active:bg-orange-600 active:text-white active:border-orange-600 active:shadow-[0_0_15px_rgba(249,115,22,0.7)] transition-all z-30 opacity-100 active:scale-95 cursor-pointer"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -2381,7 +2381,7 @@ export default function HomePage() {
               </a>
               <Link
                 href="/credit-card"
-                className="flex items-center gap-2 px-5 py-2.5 bg-orange-500/30 hover:bg-orange-500/50 border border-orange-400/40 hover:border-orange-400 text-white font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
+                className="flex items-center gap-2 px-5 py-2.5 bg-orange-500/30 hover:bg-orange-500/50 border border-orange-400/40 hover:border-blue-500 text-white font-bold text-xs rounded-xl transition-all active:scale-95 cursor-pointer"
               >
                 <GraduationCap className="w-4 h-4 text-orange-200" />
                 View Scheme Details
@@ -2764,7 +2764,7 @@ export default function HomePage() {
                   <div className="flex gap-2 pt-0.5">
                     <Link
                       href={`/colleges/${college.slug}`}
-                      className="flex-1 py-2 px-2 bg-white hover:bg-slate-50 border border-slate-200 hover:border-orange-400 text-slate-700 hover:text-orange-600 font-bold text-[11px] rounded-xl text-center transition-all shadow-xs"
+                      className="flex-1 py-2 px-2 bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-500 text-slate-700 hover:text-orange-600 font-bold text-[11px] rounded-xl text-center transition-all shadow-xs"
                     >
                       View Details
                     </Link>
@@ -2927,7 +2927,7 @@ export default function HomePage() {
                   <div className="flex gap-2 pt-0.5">
                     <Link
                       href={`/colleges/${college.slug}`}
-                      className="flex-1 py-2 px-2 bg-white hover:bg-slate-50 border border-slate-200 hover:border-orange-400 text-slate-700 hover:text-orange-600 font-bold text-[11px] rounded-xl text-center transition-all shadow-xs"
+                      className="flex-1 py-2 px-2 bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-500 text-slate-700 hover:text-orange-600 font-bold text-[11px] rounded-xl text-center transition-all shadow-xs"
                     >
                       View Details
                     </Link>
@@ -2951,40 +2951,64 @@ export default function HomePage() {
       {/* REVIEW & EARN REWARDS BANNER */}
       {/* Section Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200/80 to-transparent my-2" />
-      <section className="relative overflow-hidden rounded-[32px] border border-slate-200/40 shadow-sm flex flex-col md:flex-row items-stretch select-none bg-[#032b53] text-white min-h-[220px] md:min-h-[260px] py-8 md:py-10">
-        {/* Diagonal Slanted Left Brand Accent (Solid Saffron matching Header Logo exactly) */}
-        <div className="absolute top-0 left-0 bottom-0 w-[35%] bg-[#f47920] [clip-path:polygon(0_0,100%_0,82%_100%,0_100%)] hidden md:block z-10" />
+      <section className="relative overflow-hidden rounded-[32px] border border-blue-900/30 shadow-xl flex flex-col md:flex-row items-stretch select-none bg-gradient-to-br from-[#0c1a30] via-[#162744] to-[#0c1a30] text-white min-h-[220px] md:min-h-[260px] py-8 md:py-10">
+        {/* Diagonal Slanted Left Brand Accent (Executive Royal Navy Gradient) */}
+        <div className="absolute top-0 left-0 bottom-0 w-[36%] bg-gradient-to-br from-[#343c68] via-[#283058] to-[#1e2444] [clip-path:polygon(0_0,100%_0,82%_100%,0_100%)] hidden md:block z-10 shadow-2xl border-r border-white/10" />
 
         {/* Mobile Brand Accent */}
-        <div className="w-full h-24 bg-[#f47920] flex md:hidden items-center justify-center relative overflow-hidden z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15),transparent_60%)]" />
-          <img
-            src="/logo.png?v=3"
-            alt="Octa Education"
-            className="h-14 w-auto object-contain"
-          />
+        <div className="w-full py-5 bg-gradient-to-r from-[#343c68] via-[#283058] to-[#343c68] flex md:hidden items-center justify-center relative overflow-hidden z-10 border-b border-white/10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_65%)]" />
+          <div className="flex items-center gap-3 relative z-10">
+            <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+              <img
+                src="/octa-emblem.png"
+                alt="Octa Education"
+                className="w-full h-full object-contain filter drop-shadow"
+              />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center tracking-tight leading-none font-black font-outfit text-xl">
+                <span className="text-white">OC</span>
+                <span className="text-[#4D9BE6]">TA</span>
+              </div>
+              <span className="text-[9px] font-bold tracking-widest text-[#FFA877] uppercase leading-tight mt-0.5">
+                Educational Consultants
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Brand Logo Container on Left (Desktop) */}
-        <div className="absolute top-0 left-0 bottom-0 w-[32%] hidden md:flex flex-col items-center justify-center z-20 pl-8">
-          <img
-            src="/logo.png?v=3"
-            alt="Octa Education"
-            className="h-20 w-auto object-contain"
-          />
-          <span className="text-[9px] uppercase tracking-[0.25em] font-black text-white/90 mt-2">
-            Review & Reward
+        <div className="absolute top-0 left-0 bottom-0 w-[33%] hidden md:flex flex-col items-center justify-center z-20 pl-8">
+          <div className="relative w-20 h-20 mb-2 flex items-center justify-center">
+            <img
+              src="/octa-emblem.png"
+              alt="Octa Education"
+              className="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.35)]"
+            />
+          </div>
+          <div className="flex items-center tracking-tight leading-none font-black font-outfit text-2xl">
+            <span className="text-white">OC</span>
+            <span className="text-[#4D9BE6]">TA</span>
+          </div>
+          <span className="text-[10px] font-bold tracking-widest text-[#FFA877] uppercase mt-1">
+            Educational Consultants
           </span>
+          <div className="mt-3 px-3 py-0.5 rounded-full bg-white/10 border border-white/15">
+            <span className="text-[9px] uppercase tracking-[0.22em] font-extrabold text-blue-100">
+              Review & Reward
+            </span>
+          </div>
         </div>
 
         {/* Right/Center Content */}
         <div className="flex-1 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10 md:pl-[38%]">
           {/* Background ambient light */}
-          <div className="absolute right-0 bottom-0 w-44 h-44 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute right-0 bottom-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           {/* Middle Text Details */}
           <div className="flex-1 text-center md:text-left space-y-3">
-            <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-wider text-orange-200">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-wider text-blue-200">
               ⚡ Approval In 30 Minutes*
             </span>
             <h3 className="font-outfit font-black text-2xl md:text-3xl tracking-wide text-white leading-snug">
@@ -2996,7 +3020,7 @@ export default function HomePage() {
             <div className="pt-2">
               <Link
                 href="/write-review"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 text-white font-black text-[11px] uppercase tracking-wider rounded-xl active:scale-95 shadow-md shadow-red-500/10 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black text-[11px] uppercase tracking-wider rounded-xl active:scale-95 shadow-lg shadow-blue-600/30 transition-all cursor-pointer border border-blue-400/20"
               >
                 <FileText className="w-4 h-4" />
                 Write Now
@@ -3069,7 +3093,7 @@ export default function HomePage() {
                 <button
                   key={bank.name}
                   onClick={() => setSelectedBank({ name: bank.name, url: bank.url })}
-                  className="bg-white rounded-xl p-3 flex items-center justify-center h-16 shadow-sm border border-slate-100 hover:scale-[1.03] hover:border-orange-400 hover:shadow-md transition-all duration-200 cursor-pointer select-none relative overflow-hidden group/bank w-full"
+                  className="bg-white rounded-xl p-3 flex items-center justify-center h-16 shadow-sm border border-slate-100 hover:scale-[1.03] hover:border-blue-500 hover:shadow-md transition-all duration-200 cursor-pointer select-none relative overflow-hidden group/bank w-full"
                 >
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent w-[50%] h-[200%] pointer-events-none animate-shimmer-sheen z-10"
@@ -3274,31 +3298,31 @@ export default function HomePage() {
                 name: "Ratri Paul",
                 course: "B.Sc Student",
                 avatar: "/images/student_avatar_2.jpg",
-                text: "Octa Education has helped me in selecting my perfect college along with course. After 12 in Science with Biology and no interest in the medical field, I didn't know which course to select and in which college. College 19's face to face free Counselling has helped me in choosing my right career path.",
+                text: "Octa Education has helped me in selecting my perfect college along with course. After 12 in Science with Biology and no interest in the medical field, I didn't know which course to select and in which college. Octa Education's face to face free Counselling has helped me in choosing my right career path.",
               },
               {
                 name: "Saikat Saha",
                 course: "B.Tech Aspirant",
                 avatar: "/images/student_avatar_1.jpg",
-                text: "Being a remote student, I was clueless after class 12 in choosing my career path, but College 19's Counselling for Remote Candidates' service has helped me in sorting out my colleges and choose my course. They have also provided me with GD and PI training.",
+                text: "Being a remote student, I was clueless after class 12 in choosing my career path, but Octa Education's Counselling for Remote Candidates' service has helped me in sorting out my colleges and choose my course. They have also provided me with GD and PI training.",
               },
               {
                 name: "Ankita Mondal",
                 course: "Arts Student",
                 avatar: "/images/student_avatar_3.jpg",
-                text: "I did my HS in Computer Science but have no interest in Engineering and also did not want to pursue an Honours course. I took College 19's face to face counselling service and got to know my strength in arts subjects. They guided me to pursue arts from a reputed college.",
+                text: "I did my HS in Computer Science but have no interest in Engineering and also did not want to pursue an Honours course. I took Octa Education's face to face counselling service and got to know my strength in arts subjects. They guided me to pursue arts from a reputed college.",
               },
               {
                 name: "Aman Kumar",
                 course: "MBA Student",
                 avatar: "/images/student_avatar_4.jpg",
-                text: "I was confused between PGDM and MBA. College 19 expert counselors analyzed my profile and CAT score, and guided me to select the top colleges matching my budget. The scholarship guidance they gave helped me save ₹1.5 Lakhs on fees.",
+                text: "I was confused between PGDM and MBA. Octa Education expert counselors analyzed my profile and CAT score, and guided me to select the top colleges matching my budget. The scholarship guidance they gave helped me save ₹1.5 Lakhs on fees.",
               },
               {
                 name: "Sneha Kumari",
                 course: "MBBS Aspirant",
                 avatar: "/images/student_avatar_5.jpg",
-                text: "Cracking NEET was hard, but choosing the right medical college with my rank was harder. College 19's detailed seat analysis and documentation checklist made my admission in B.Sc Nursing/MBBS smooth. Truly grateful to the team.",
+                text: "Cracking NEET was hard, but choosing the right medical college with my rank was harder. Octa Education's detailed seat analysis and documentation checklist made my admission in B.Sc Nursing/MBBS smooth. Truly grateful to the team.",
               },
               {
                 name: "Rahul Verma",
@@ -3316,13 +3340,13 @@ export default function HomePage() {
                 name: "Vikram Singh",
                 course: "Law Student",
                 avatar: "/images/student_avatar_8.jpg",
-                text: "I wanted to pursue law but wasn't sure about the integrated course options. College 19 counselors explained the difference between BA LLB and BBA LLB. Thanks to them, I secured admission in a top university.",
+                text: "I wanted to pursue law but wasn't sure about the integrated course options. Octa Education counselors explained the difference between BA LLB and BBA LLB. Thanks to them, I secured admission in a top university.",
               },
               {
                 name: "Neha Raj",
                 course: "B.Sc Nursing Student",
                 avatar: "/images/student_avatar_3.jpg",
-                text: "Getting admission under Bihar Student Credit Card scheme was a dream. College 19 helped me throughout the college selection, verification, and DRCC registration. Best free counseling service in India!",
+                text: "Getting admission under Bihar Student Credit Card scheme was a dream. Octa Education helped me throughout the college selection, verification, and DRCC registration. Best free counseling service in India!",
               },
               {
                 name: "Abhishek Mishra",
@@ -3333,7 +3357,7 @@ export default function HomePage() {
             ].map((review, idx) => (
               <div
                 key={idx}
-                className="group bg-[#eef2f6] border border-slate-200/60 p-6 md:p-7 flex flex-col justify-between w-[290px] h-[290px] sm:w-[320px] sm:h-[320px] shrink-0 snap-start snap-always relative overflow-hidden select-none rounded-xl transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1.5 hover:rotate-[0.5deg] hover:bg-[#f47920] hover:border-orange-600 hover:shadow-[0_12px_30px_-5px_rgba(244,121,32,0.35)]"
+                className="group bg-[#eef2f6] border border-slate-200/60 p-6 md:p-7 flex flex-col justify-between w-[290px] h-[290px] sm:w-[320px] sm:h-[320px] shrink-0 snap-start snap-always relative overflow-hidden select-none rounded-xl transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1.5 hover:rotate-[0.5deg] hover:bg-[#343c68] hover:border-blue-600 hover:shadow-[0_12px_30px_-5px_rgba(52,60,104,0.4)]"
               >
                 {/* Background Shimmer sweep on card hover */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-[50%] h-[200%] pointer-events-none translate-x-[-100%] group-hover:animate-shimmer-sheen z-10" />
@@ -3348,7 +3372,7 @@ export default function HomePage() {
                   <span className="font-outfit font-black text-xs sm:text-sm text-slate-800 uppercase tracking-wide transition-colors duration-300 group-hover:text-white">
                     {review.name}
                   </span>
-                  <span className="text-[9.5px] text-slate-400 font-extrabold uppercase mt-0.5 transition-colors duration-300 group-hover:text-orange-100">
+                  <span className="text-[9.5px] text-slate-400 font-extrabold uppercase mt-0.5 transition-colors duration-300 group-hover:text-blue-100">
                     {review.course}
                   </span>
                 </div>
@@ -3405,7 +3429,7 @@ export default function HomePage() {
       {/* FOOTER CALL-TO-ACTION COUNSELING */}
       {/* Section Divider */}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200/80 to-transparent my-2" />
-      <section className="bg-[#fff9f2] border border-orange-200/40 p-8 md:p-12 rounded-[32px] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center shadow-sm select-none">
+      <section className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 border border-slate-200/80 p-8 md:p-12 rounded-[32px] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center shadow-sm select-none">
         {/* Left Column: Expert Badges and Contacts */}
         <div className="lg:col-span-6 space-y-6">
           <div className="space-y-3">
@@ -3422,14 +3446,14 @@ export default function HomePage() {
             {/* Admissions Helpline */}
             <a
               href="tel:+918434555577"
-              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200 cursor-pointer no-underline"
+              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <Phone className="w-4 h-4" />
               </div>
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Admissions Helpline:{" "}
-                <span className="text-orange-500 font-sans">
+                <span className="text-blue-600 font-sans">
                   +91-8434555577
                 </span>
               </span>
@@ -3438,14 +3462,14 @@ export default function HomePage() {
             {/* Student Support */}
             <a
               href="tel:+918434555599"
-              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200 cursor-pointer no-underline"
+              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <PhoneCall className="w-4 h-4" />
               </div>
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Student Support:{" "}
-                <span className="text-orange-500 font-sans">
+                <span className="text-blue-600 font-sans">
                   +91-8434555599
                 </span>
               </span>
@@ -3453,16 +3477,16 @@ export default function HomePage() {
 
             {/* Email */}
             <a
-              href="mailto:info@thinkyourcollege.com"
-              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200 cursor-pointer no-underline"
+              href="mailto:info@octaeducation.com"
+              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <Mail className="w-4 h-4" />
               </div>
               <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide">
                 Email:{" "}
-                <span className="text-orange-500 font-sans font-extrabold uppercase">
-                  info@thinkyourcollege.com
+                <span className="text-blue-600 font-sans font-extrabold uppercase">
+                  info@octaeducation.com
                 </span>
               </span>
             </a>
@@ -3473,7 +3497,7 @@ export default function HomePage() {
               href="https://www.google.com/maps/search/Alpha+1,+Greater+Noida,+Uttar+Pradesh"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200 cursor-pointer no-underline"
+              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
             >
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <MapPin className="w-4 h-4" />
@@ -3487,7 +3511,7 @@ export default function HomePage() {
             </a>
 
             {/* Visit Us */}
-            <div className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200">
+            <div className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200">
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
@@ -3500,7 +3524,7 @@ export default function HomePage() {
             </div>
 
             {/* Book Home Visit */}
-            <div className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-orange-400 transition-all duration-200">
+            <div className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200">
               <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
                 <Calendar className="w-4 h-4" />
               </div>
