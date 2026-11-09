@@ -4,9 +4,9 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import LayoutWrapper from "@/components/LayoutWrapper";
 
 export const metadata: Metadata = {
-  title: "College 19 - Premium College Discovery & Admission Portal",
+  title: "Octa Educational Consultants - Premier College Discovery & Admission Guidance",
   description:
-    "Find your ideal college in India. Dynamic search, engineering, medical, law, MBA courses, predictors, comparison tools, and credit card admission guidance.",
+    "Find your ideal college in India with Octa Educational Consultants. Comprehensive search for engineering, medical, law, MBA courses, predictors, comparison tools, and credit card admission guidance.",
 };
 
 export default function RootLayout({

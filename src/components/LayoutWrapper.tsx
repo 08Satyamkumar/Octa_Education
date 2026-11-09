@@ -1823,19 +1823,27 @@ export default function LayoutWrapper({
           {/* Logo Section (Official Brand Logo) */}
           <Link
             href="/"
-            className="flex items-center select-none hover:scale-[1.03] transition-transform origin-left flex-shrink-0"
+            className="flex items-center gap-2.5 sm:gap-3 select-none hover:opacity-95 transition-all origin-left flex-shrink-0 group"
           >
             <img
-              src="/logo.png?v=3"
-              alt="College 19"
-              className="h-12 md:h-14 w-auto object-contain"
+              src="/octa-logo.png"
+              alt="Octa Educational Consultants"
+              className="h-11 sm:h-12 md:h-14 w-auto object-contain rounded-lg transition-transform group-hover:scale-105"
             />
+            <div className="hidden sm:flex flex-col justify-center">
+              <span className="font-outfit font-black text-lg md:text-xl tracking-wider text-white leading-tight drop-shadow-sm">
+                OCTA
+              </span>
+              <span className="text-[8px] md:text-[9px] font-bold tracking-[0.16em] text-blue-200 uppercase leading-none mt-0.5">
+                Educational Consultants
+              </span>
+            </div>
           </Link>
 
           {/* Wide Global Search Bar (Conjoined Input & Button) */}
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden md:flex items-center flex-1 max-w-2xl h-10 bg-white rounded-md overflow-hidden shadow-sm border border-amber-200/60"
+            className="hidden md:flex items-center flex-1 max-w-2xl h-10 bg-white rounded-md overflow-hidden shadow-sm border border-blue-200/50"
           >
             <input
               type="text"
@@ -1849,7 +1857,7 @@ export default function LayoutWrapper({
             />
             <button
               type="submit"
-              className="h-full px-7 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 transition-all text-white font-extrabold text-xs tracking-wider uppercase flex items-center justify-center flex-shrink-0 active:scale-95 shadow-inner"
+              className="h-full px-7 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 transition-all text-white font-extrabold text-xs tracking-wider uppercase flex items-center justify-center flex-shrink-0 active:scale-95 shadow-md"
             >
               Search
             </button>
@@ -1860,7 +1868,7 @@ export default function LayoutWrapper({
             {user ? (
               <div className="flex items-center gap-3 pl-2 border-l border-white/20">
                 {/* Avatar circular badge */}
-                <div className="w-8 h-8 rounded-full bg-white text-orange-600 flex items-center justify-center font-black text-xs shadow-sm uppercase">
+                <div className="w-8 h-8 rounded-full bg-white text-blue-800 flex items-center justify-center font-black text-xs shadow-sm uppercase">
                   {user.name.charAt(0)}
                 </div>
                 <div className="flex flex-col">
@@ -1887,7 +1895,7 @@ export default function LayoutWrapper({
                   onClick={() => setAuthModal({ open: true, mode: "login" })}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.96 }}
-                  className="text-white hover:text-amber-100 font-bold transition-colors"
+                  className="text-white hover:text-blue-200 font-bold transition-colors"
                 >
                   Login
                 </motion.button>
@@ -1898,7 +1906,7 @@ export default function LayoutWrapper({
                     boxShadow: "0 4px 18px rgba(255,255,255,0.2)",
                   }}
                   whileTap={{ scale: 0.96 }}
-                  className="px-4 py-1.5 rounded-lg bg-white text-orange-600 hover:bg-amber-50 font-black text-[11px] tracking-wide shadow-sm transition-all"
+                  className="px-4 py-1.5 rounded-lg bg-white text-blue-800 hover:bg-blue-50 font-black text-[11px] tracking-wide shadow-sm transition-all"
                 >
                   Sign Up
                 </motion.button>
@@ -2010,7 +2018,7 @@ export default function LayoutWrapper({
               {/* Top Colleges */}
               <Link
                 href="/colleges"
-                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap"
+                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap"
               >
                 Top Colleges
               </Link>
@@ -2019,7 +2027,7 @@ export default function LayoutWrapper({
               {/* Top Courses */}
               <Link
                 href="/colleges"
-                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap"
+                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap"
               >
                 Top Courses
               </Link>
@@ -2028,7 +2036,7 @@ export default function LayoutWrapper({
               {/* Entrance Exams */}
               <Link
                 href="/colleges"
-                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap"
+                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap"
               >
                 Entrance Exams
               </Link>
@@ -2037,7 +2045,7 @@ export default function LayoutWrapper({
               {/* Boards */}
               <Link
                 href="/colleges"
-                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap"
+                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap"
               >
                 Boards
               </Link>
@@ -2046,12 +2054,12 @@ export default function LayoutWrapper({
               {/* Admission 2026 (Opens the Admission Alerts popup!) */}
               <button
                 onClick={() => setIsAlertOpen(true)}
-                className="flex items-center gap-1.5 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap group"
+                className="flex items-center gap-1.5 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap group"
               >
                 <span>Admission 2026</span>
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-600"></span>
                 </span>
               </button>
               <div className="w-[1px] h-3 bg-slate-200" />
@@ -2059,7 +2067,7 @@ export default function LayoutWrapper({
               {/* News & Articles */}
               <Link
                 href="/colleges"
-                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-orange-600 transition-colors uppercase whitespace-nowrap"
+                className="flex items-center gap-1 px-3 h-full text-[10px] font-black tracking-wider text-slate-600 hover:text-blue-600 transition-colors uppercase whitespace-nowrap"
               >
                 News
               </Link>
@@ -2069,7 +2077,7 @@ export default function LayoutWrapper({
             <div className="flex items-center h-full flex-shrink-0">
               <Link
                 href="/write-review"
-                className="flex items-center gap-1.5 px-3 py-1 rounded-md border border-orange-500 hover:bg-orange-50 text-[9px] font-black tracking-wider text-orange-600 uppercase transition-all whitespace-nowrap shadow-sm hover:shadow active:scale-95"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-md border border-blue-600 hover:bg-blue-50 text-[9px] font-black tracking-wider text-blue-700 uppercase transition-all whitespace-nowrap shadow-sm hover:shadow active:scale-95"
               >
                 <Star className="w-2.5 h-2.5 fill-current" />
                 Write a Review
@@ -3174,12 +3182,15 @@ export default function LayoutWrapper({
                   className="flex items-center gap-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-premium text-white">
-                    <GraduationCap className="w-5 h-5" />
+                  <img src="/octa-logo.png" alt="Octa Educational Consultants" className="h-9 w-auto object-contain rounded-md" />
+                  <div className="flex flex-col justify-center">
+                    <span className="font-outfit font-black text-sm tracking-tight text-slate-900 uppercase leading-tight">
+                      OCTA
+                    </span>
+                    <span className="text-[7px] font-bold tracking-widest text-blue-600 uppercase">
+                      Educational Consultants
+                    </span>
                   </div>
-                  <span className="font-outfit font-black text-sm tracking-tight text-slate-950 hover:text-primary transition-colors uppercase">
-                    College 19
-                  </span>
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -3586,17 +3597,21 @@ export default function LayoutWrapper({
         <div className="border-t border-[#0a3a6b] bg-[#021f3d]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Left: Logo (Pure White Brand Logo) */}
-            <div className="flex flex-col items-start select-none py-1 shrink-0">
-              <img
-                src="/logo-white.png?v=5"
-                alt="College 19"
-                className="h-10 md:h-11 w-auto object-contain"
-              />
+            <div className="flex items-center gap-3 select-none py-1 shrink-0">
+              <img src="/octa-logo.png" alt="Octa Educational Consultants" className="h-10 md:h-12 w-auto object-contain rounded-md" />
+              <div className="flex flex-col justify-center">
+                <span className="font-outfit font-black text-base md:text-lg tracking-wider text-white leading-tight">
+                  OCTA
+                </span>
+                <span className="text-[8px] font-bold tracking-[0.16em] text-blue-200 uppercase leading-none">
+                  Educational Consultants
+                </span>
+              </div>
             </div>
 
             {/* Middle: Copyright & Developed By */}
             <p className="text-[11px] text-slate-300 text-center">
-              © 2026 College 19. All Rights Reserved. Developed By{" "}
+              © 2026 Octa Educational Consultants. All Rights Reserved. Developed By{" "}
               <a
                 href="https://vecttor.world"
                 target="_blank"

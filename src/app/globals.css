@@ -9,19 +9,19 @@
     --font-outfit: 'Outfit', sans-serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
     --font-poppins: 'Poppins', sans-serif;
-    --primary: hsl(230, 80%, 55%);
-    --primary-hover: hsl(230, 80%, 48%);
-    --secondary: hsl(160, 84%, 39%);
-    --secondary-hover: hsl(160, 84%, 33%);
+    --primary: #343c68;
+    --primary-hover: #262e54;
+    --secondary: #3B82F6;
+    --secondary-hover: #2563EB;
     --background: hsl(210, 20%, 98%);
     --card: hsl(0, 0%, 100%);
     --text-primary: hsl(220, 15%, 15%);
     --text-secondary: hsl(220, 10%, 45%);
     --border: hsl(220, 10%, 90%);
-    --accent: hsl(230, 80%, 55%);
-    --brand-header: hsl(22, 90%, 55%);
-    --brand-orange: hsl(22, 90%, 55%);
-    --brand-orange-hover: hsl(22, 90%, 48%);
+    --accent: #3B82F6;
+    --brand-header: #343c68;
+    --brand-orange: #3B82F6;
+    --brand-orange-hover: #2563EB;
   }
 
   html,
@@ -106,7 +106,7 @@
 }
 
 .custom-filter-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #f97316;
+  background-color: #3b82f6;
 }
 
 /* Ticker Scroll Marquee Animation */
