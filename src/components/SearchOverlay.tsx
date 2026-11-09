@@ -112,7 +112,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 <GraduationCap className="w-5 h-5" />
               </div>
               <span className="font-outfit font-black text-xs md:text-sm tracking-tight text-slate-800 uppercase">
-                College 19
+                Octa Education
               </span>
             </div>
 

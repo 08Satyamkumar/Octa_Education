@@ -417,7 +417,7 @@ export default function AuthModal({
                     </motion.div>
                     <div className="text-left">
                       <p className="font-black text-[13px] tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 bg-clip-text text-transparent uppercase leading-tight">
-                        College 19
+                        Octa Education
                       </p>
                       <p className="text-[9px] text-slate-400 font-semibold tracking-widest uppercase">
                         India's #1 College Discovery
@@ -569,7 +569,7 @@ export default function AuthModal({
                           </motion.button>
                         </div>
                         <p className="text-center text-[11px] text-slate-500 pt-1">
-                          New to College 19?{" "}
+                          New to Octa Education?{" "}
                           <button
                             onClick={() => switchMode("signup")}
                             className="font-black text-orange-500 hover:text-orange-600 underline underline-offset-2 transition-colors"
@@ -659,7 +659,7 @@ export default function AuthModal({
                             </div>
                           </div>
                           <span className="text-[10px] text-slate-500 leading-snug">
-                            I agree to College 19{" "}
+                            I agree to Octa Education{" "}
                             <span className="text-indigo-500 font-bold hover:underline cursor-pointer">
                               Terms & Conditions
                             </span>{" "}

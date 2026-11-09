@@ -230,7 +230,7 @@ const trendingUpdates = [
     tag: "Exam Update",
     title: "JEE Main 2027 Registration Portal Live - Apply before Deadline",
     details:
-      "The registration portal for JEE Main 2027 Session 1 is officially open. Aspiring candidates can fill out the application form on the official website. Check eligible engineering colleges and cutoffs on College 19.",
+      "The registration portal for JEE Main 2027 Session 1 is officially open. Aspiring candidates can fill out the application form on the official website. Check eligible engineering colleges and cutoffs on Octa Education.",
     actionText: "Search Engineering Colleges",
     actionLink: "/colleges?stream=Engineering",
   },
@@ -257,7 +257,7 @@ const trendingUpdates = [
     id: "4",
     tag: "Scholarship",
     title:
-      "College 19 Scholarship Test (C19ST) 2026 - Win up to 100% tuition coverage",
+      "Octa Education Scholarship Test (OEST) 2026 - Win up to 100% tuition coverage",
     details:
       "C19ST 2026 registrations are now open for students seeking admissions in MBA, Engineering, and Medical courses. Participate and win financial aid up to ₹5 Lakhs.",
     actionText: "Register for Scholarship",
@@ -265,9 +265,9 @@ const trendingUpdates = [
   },
   {
     id: "5",
-    tag: "College 19 Feature",
+    tag: "Octa Education Feature",
     title:
-      "College 19 Predictor 2026 Launched: Predict your dream campus in seconds",
+      "Octa Education Predictor 2026 Launched: Predict your dream campus in seconds",
     details:
       "Get rank-based AI recommendations for IITs, NITs, AIIMS, and top private universities based on your JEE, NEET, or CAT exam scores.",
     actionText: "Open College Predictor",
@@ -276,7 +276,7 @@ const trendingUpdates = [
   {
     id: "6",
     tag: "Student Cards",
-    title: "Get Student-friendly Credit Cards via College 19 - Zero Annual Charges",
+    title: "Get Student-friendly Credit Cards via Octa Education - Zero Annual Charges",
     details:
       "Apply for custom credit cards designed for university students to cover tuition fees, books, and living expenses with interest-free semesters.",
     actionText: "Apply for Student Card",
@@ -2960,7 +2960,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15),transparent_60%)]" />
           <img
             src="/logo.png?v=3"
-            alt="College 19"
+            alt="Octa Education"
             className="h-14 w-auto object-contain"
           />
         </div>
@@ -2969,7 +2969,7 @@ export default function HomePage() {
         <div className="absolute top-0 left-0 bottom-0 w-[32%] hidden md:flex flex-col items-center justify-center z-20 pl-8">
           <img
             src="/logo.png?v=3"
-            alt="College 19"
+            alt="Octa Education"
             className="h-20 w-auto object-contain"
           />
           <span className="text-[9px] uppercase tracking-[0.25em] font-black text-white/90 mt-2">
@@ -3274,7 +3274,7 @@ export default function HomePage() {
                 name: "Ratri Paul",
                 course: "B.Sc Student",
                 avatar: "/images/student_avatar_2.jpg",
-                text: "College 19 has helped me in selecting my perfect college along with course. After 12 in Science with Biology and no interest in the medical field, I didn't know which course to select and in which college. College 19's face to face free Counselling has helped me in choosing my right career path.",
+                text: "Octa Education has helped me in selecting my perfect college along with course. After 12 in Science with Biology and no interest in the medical field, I didn't know which course to select and in which college. College 19's face to face free Counselling has helped me in choosing my right career path.",
               },
               {
                 name: "Saikat Saha",
@@ -3304,13 +3304,13 @@ export default function HomePage() {
                 name: "Rahul Verma",
                 course: "BCA Student",
                 avatar: "/images/student_avatar_6.jpg",
-                text: "College 19's portal helped me compare fees, placements, and hostel facilities of 10+ colleges in just 5 minutes. Their helpline answered all my questions about Bihar Student Credit Card and admission quotas.",
+                text: "Octa Education's portal helped me compare fees, placements, and hostel facilities of 10+ colleges in just 5 minutes. Their helpline answered all my questions about Bihar Student Credit Card and admission quotas.",
               },
               {
                 name: "Pooja Sharma",
                 course: "BBA Student",
                 avatar: "/images/student_avatar_7.jpg",
-                text: "The counseling session with College 19 changed my perspective. They conducted a mock interview for my college entry and guided me step-by-step with the documentation and registration.",
+                text: "The counseling session with Octa Education changed my perspective. They conducted a mock interview for my college entry and guided me step-by-step with the documentation and registration.",
               },
               {
                 name: "Vikram Singh",
@@ -3560,7 +3560,7 @@ export default function HomePage() {
                   {selectedBank.name} Education Loan
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  You are about to visit <span className="font-bold text-slate-700">{selectedBank.name}</span>'s official education loan page. Apply directly or get free guidance from College 19 first.
+                  You are about to visit <span className="font-bold text-slate-700">{selectedBank.name}</span>'s official education loan page. Apply directly or get free guidance from Octa Education first.
                 </p>
               </div>
 
@@ -3579,12 +3579,12 @@ export default function HomePage() {
                   onClick={() => { setSelectedBank(null); setShowInquiryModal(true); setModalType("loan"); }}
                   className="w-full border-2 border-orange-400 text-orange-500 text-sm font-black rounded-xl py-3 hover:bg-orange-50 transition-colors"
                 >
-                  Get Free Guidance from College 19 🎓
+                  Get Free Guidance from Octa Education 🎓
                 </button>
               </div>
 
               <p className="text-[10px] text-slate-400 text-center">
-                College 19 is not affiliated with {selectedBank.name}. Links redirect to official bank websites.
+                Octa Education is not affiliated with {selectedBank.name}. Links redirect to official bank websites.
               </p>
             </motion.div>
           </div>

@@ -124,7 +124,7 @@ export default function WriterLoginPage() {
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 font-semibold mt-0.5">
-                    College 19 Editorial CMS Dashboard
+                    Octa Education Editorial CMS Dashboard
                   </p>
                 </div>
               </div>
@@ -283,7 +283,7 @@ export default function WriterLoginPage() {
 
             <div className="pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-500 font-semibold">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>Secure Editorial CMS • College 19</span>
+              <span>Secure Editorial CMS • Octa Education</span>
             </div>
           </div>
         )}

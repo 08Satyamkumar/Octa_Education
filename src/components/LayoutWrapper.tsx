@@ -206,7 +206,7 @@ export default function LayoutWrapper({
           "🌲 **Chandigarh University (Punjab)** is a massive private university:\n\n• **NIRF Rank**: Top 30 in Universities\n• **Highest Package**: ₹54.0 LPA\n• **Average Package**: ₹7.5 LPA\n• **Highlights**: Vibrant campus life, global collaborations, strong industry networking.";
       } else if (cleanText.includes("compare")) {
         responseText =
-          "⚖️ **College 19 Comparison Tool**:\n\nAap custom colleges compare karne ke liye screen ke center-right mein floating **Compare Button (Shuffle Icon)** par click kijiye. Wahan aap categories like engineering/management select karke multiple colleges side-by-side analyze kar sakte hain.";
+          "⚖️ **Octa Education Comparison Tool**:\n\nAap custom colleges compare karne ke liye screen ke center-right mein floating **Compare Button (Shuffle Icon)** par click kijiye. Wahan aap categories like engineering/management select karke multiple colleges side-by-side analyze kar sakte hain.";
       } else if (
         cleanText.includes("predictor") ||
         cleanText.includes("counseling")
@@ -3327,7 +3327,7 @@ export default function LayoutWrapper({
             </div>
 
             <div className="text-center text-[10px] text-text_secondary py-3.5 border-t border-border bg-slate-50 flex-shrink-0">
-              College 19 © 2026
+              Octa Education © 2026
             </div>
           </aside>
         </div>
@@ -3883,11 +3883,11 @@ export default function LayoutWrapper({
 
                 {/* Left Top Header */}
                 <div className="space-y-6 z-10">
-                  {/* Official COLLEGE 19 Logo */}
+                  {/* Official Octa Education Logo */}
                   <div className="flex flex-col items-start select-none pb-4 scale-110 origin-left">
                     <img
                       src="/logo.png?v=3"
-                      alt="College 19"
+                      alt="Octa Education"
                       className="h-16 w-auto object-contain"
                     />
                   </div>

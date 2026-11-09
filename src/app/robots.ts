@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://www.college19.com/sitemap.xml",
+    sitemap: "https://www.octaeducation.com/sitemap.xml",
   };
 }

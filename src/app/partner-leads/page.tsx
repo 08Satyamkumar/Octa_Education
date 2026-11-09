@@ -90,7 +90,7 @@ export default function PartnerLeadsPortal() {
           setIsAuthenticated(true);
         } else {
           // Check localStorage fallback for client session
-          const localAuth = localStorage.getItem("college19_partner_session");
+          const localAuth = localStorage.getItem("octa_partner_session") || localStorage.getItem("college19_partner_session");
           if (localAuth === "authenticated") {
             setIsAuthenticated(true);
           } else {
@@ -165,7 +165,7 @@ export default function PartnerLeadsPortal() {
 
       if (res.ok && data.success) {
         setIsAuthenticated(true);
-        localStorage.setItem("college19_partner_session", "authenticated");
+        localStorage.setItem("octa_partner_session", "authenticated");
         setUsername("");
         setPassword("");
       } else {
@@ -183,7 +183,7 @@ export default function PartnerLeadsPortal() {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } catch {}
-    localStorage.removeItem("college19_partner_session");
+    localStorage.removeItem("octa_partner_session"); localStorage.removeItem("college19_partner_session");
     setIsAuthenticated(false);
   };
 
@@ -292,7 +292,7 @@ export default function PartnerLeadsPortal() {
               <x:ExcelWorkbook>
                 <x:ExcelWorksheets>
                   <x:ExcelWorksheet>
-                    <x:Name>College19 Inquiries</x:Name>
+                    <x:Name>Octa Education Inquiries</x:Name>
                     <x:WorksheetOptions>
                       <x:DisplayGridlines/>
                       <x:FitToPage/>
@@ -382,7 +382,7 @@ export default function PartnerLeadsPortal() {
 
               <thead>
                 <tr>
-                  <th colspan="10" class="banner-title">COLLEGE19 — STUDENT LEADS & ADMISSIONS REPORT</th>
+                  <th colspan="10" class="banner-title">OCTA EDUCATION — STUDENT LEADS & ADMISSIONS REPORT</th>
                 </tr>
                 <tr>
                   <td colspan="10" class="banner-sub">
@@ -446,7 +446,7 @@ export default function PartnerLeadsPortal() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.setAttribute("href", url);
-        link.setAttribute("download", `College19_Leads_Report_${timestamp}.xls`);
+        link.setAttribute("download", `Octa_Education_Leads_Report_${timestamp}.xls`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -497,7 +497,7 @@ export default function PartnerLeadsPortal() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.setAttribute("href", url);
-        link.setAttribute("download", `College19_Leads_Report_${timestamp}.csv`);
+        link.setAttribute("download", `Octa_Education_Leads_Report_${timestamp}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -568,13 +568,13 @@ export default function PartnerLeadsPortal() {
           {/* Header */}
           <div className="text-center mb-7">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/20 text-white font-black text-xl tracking-tight">
-              C19
+              OCTA
             </div>
             <h1 className="font-outfit font-black text-2xl text-white tracking-tight">
               Partner Leads Desk
             </h1>
             <p className="text-xs text-slate-400 font-medium mt-1">
-              College19 Admissions & Client CRM Gateway
+              Octa Education Admissions & Client CRM Gateway
             </p>
           </div>
 
@@ -657,12 +657,12 @@ export default function PartnerLeadsPortal() {
           {/* Logo & Portal Branding */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 text-white flex items-center justify-center font-black text-sm tracking-tight shadow-md shadow-orange-500/20">
-              C19
+              OCTA
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="font-outfit font-black text-base sm:text-lg text-slate-900 leading-tight">
-                  College19
+                  Octa Education
                 </h1>
                 <span className="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-black uppercase tracking-wide">
                   Partner Desk
@@ -1034,7 +1034,7 @@ export default function PartnerLeadsPortal() {
                     const badge = getStatusBadge(lead.status);
                     const cleanPhone = lead.phone.replace(/\D/g, "");
                     const whatsappMsg = encodeURIComponent(
-                      `Hello ${lead.name}, greetings from College19! We received your admission inquiry for ${lead.course_interest || "Higher Studies"} at ${lead.college_interest || "our partner colleges"}. How can we assist you with fees, cutoffs, and admissions today?`
+                      `Hello ${lead.name}, greetings from Octa Education! We received your admission inquiry for ${lead.course_interest || "Higher Studies"} at ${lead.college_interest || "our partner colleges"}. How can we assist you with fees, cutoffs, and admissions today?`
                     );
 
                     return (
