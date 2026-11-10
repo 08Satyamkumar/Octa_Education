@@ -926,7 +926,7 @@ function CollegesListContent() {
     } catch {}
     setIsAdmin(false);
     if (typeof window !== "undefined") {
-      localStorage.removeItem("think_college_admin");
+      localStorage.removeItem("think_college_admin"); localStorage.removeItem("octa_admin_session_client");
     }
   };
 
