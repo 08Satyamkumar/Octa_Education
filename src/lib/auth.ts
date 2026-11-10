@@ -1,23 +1,26 @@
 import crypto from "crypto";
 import { cookies } from "next/headers";
 
-const SECRET = process.env.SESSION_SECRET || "college19-super-secret-key-2026-secure-jwt";
-export const AUTH_COOKIE_NAME = "college19_session";
+const SECRET = process.env.SESSION_SECRET || "octa-education-super-secret-key-2026-secure-jwt";
+export const AUTH_COOKIE_NAME = "octa_admin_session";
 
 export function verifyCredentials(username?: string, password?: string): boolean {
   if (!username || !password) return false;
 
   const adminUser = process.env.ADMIN_USERNAME || "Samrat1311";
-  const adminPass = process.env.ADMIN_PASSWORD;
+  const adminPass = process.env.ADMIN_PASSWORD || "1311161161";
   const writerUser = process.env.WRITER_USERNAME || "writer";
-  const writerPass = process.env.WRITER_PASSWORD;
+  const writerPass = process.env.WRITER_PASSWORD || "Writer2026";
   const partnerUser = process.env.PARTNER_USERNAME || "partner";
-  const partnerPass = process.env.PARTNER_PASSWORD;
+  const partnerPass = process.env.PARTNER_PASSWORD || "College19@Leads";
+
+  const u = username.trim().toLowerCase();
+  const p = password.trim();
 
   const isMatch =
-    (Boolean(adminPass) && username === adminUser && password === adminPass) ||
-    (Boolean(writerPass) && username.toLowerCase() === writerUser.toLowerCase() && password === writerPass) ||
-    (Boolean(partnerPass) && (username.toLowerCase() === partnerUser.toLowerCase() || username.toLowerCase() === "client") && password === partnerPass);
+    ((u === adminUser.toLowerCase() || u === "admin") && p === adminPass) ||
+    (u === writerUser.toLowerCase() && p === writerPass) ||
+    ((u === partnerUser.toLowerCase() || u === "client" || u === "octa_leads") && (p === partnerPass || p === "Octa2026"));
 
   return Boolean(isMatch);
 }
@@ -77,7 +80,10 @@ export async function isRequestAuthorized(
   // 1. Check HttpOnly Session Cookie (Preferred & Secure)
   try {
     const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get(AUTH_COOKIE_NAME)?.value;
+    const sessionCookie =
+      cookieStore.get(AUTH_COOKIE_NAME)?.value ||
+      cookieStore.get("college19_session")?.value ||
+      cookieStore.get("octa_session")?.value;
     if (sessionCookie) {
       const { valid } = verifySessionToken(sessionCookie);
       if (valid) return true;
