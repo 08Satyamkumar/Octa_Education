@@ -284,7 +284,17 @@ const trendingUpdates = [
   },
 ];
 
-const heroSlides = [
+interface HeroSlide {
+  id?: string;
+  name: string;
+  location: string;
+  image: string;
+  slug: string;
+  position?: string;
+  color?: string;
+}
+
+const INITIAL_HERO_SLIDES: HeroSlide[] = [
   {
     name: "Amity University",
     location: "Noida, Uttar Pradesh",
@@ -306,6 +316,7 @@ const heroSlides = [
     location: "Greater Noida, Uttar Pradesh",
     image: "/images/galgotias_real.jpg?v=2",
     slug: "galgotias-university",
+    position: "center",
     color: "#ff7a00", // Galgotias Orange
   },
 
@@ -322,6 +333,7 @@ const heroSlides = [
     location: "Rishikesh, Uttarakhand",
     image: "/images/aiimsrishikesh.webp",
     slug: "aiims-rishikesh",
+    position: "center",
     color: "#10b981", // AIIMS Emerald
   },
 ];
@@ -848,6 +860,21 @@ export default function HomePage() {
     "cities" | "exams" | "courses"
   >("cities");
 
+  // Hero Banners Management State
+  const [heroSlidesList, setHeroSlidesList] = useState<HeroSlide[]>(INITIAL_HERO_SLIDES);
+  const [showHeroBannerModal, setShowHeroBannerModal] = useState(false);
+  const [editingSlideIndex, setEditingSlideIndex] = useState<number | null>(null);
+  const [slideForm, setSlideForm] = useState<HeroSlide>({
+    name: "",
+    location: "",
+    image: "",
+    slug: "",
+    position: "center",
+    color: "#3b82f6",
+  });
+  const [isSavingHeroSlides, setIsSavingHeroSlides] = useState(false);
+  const [heroSlideMessage, setHeroSlideMessage] = useState("");
+
   // Admin and Dynamic College Management State
   const [isAdmin, setIsAdmin] = useState(false);
   const [showAdminLoginModal, setShowAdminLoginModal] = useState(false);
@@ -893,11 +920,12 @@ export default function HomePage() {
   const [activeCounselingSlide, setActiveCounselingSlide] = useState(0);
 
   useEffect(() => {
+    if (!heroSlidesList || heroSlidesList.length === 0) return;
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
+      setActiveSlide((prev) => (prev + 1) % heroSlidesList.length);
+    }, 4500);
     return () => clearInterval(timer);
-  }, []);
+  }, [heroSlidesList.length]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1108,6 +1136,16 @@ export default function HomePage() {
       });
 
     if (typeof window !== "undefined") {
+      const savedHero = localStorage.getItem("octa_homepage_hero_slides") || localStorage.getItem("tyc_homepage_hero_slides");
+      if (savedHero) {
+        try {
+          const parsed = JSON.parse(savedHero);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setHeroSlidesList(parsed);
+          }
+        } catch (e) {}
+      }
+
       const savedTrending = localStorage.getItem("tyc_homepage_trending_colleges");
       if (savedTrending) {
         try {
@@ -1141,6 +1179,11 @@ export default function HomePage() {
             if (Array.isArray(data.featured) && data.featured.length > 0) {
               setFeaturedColleges(data.featured);
               localStorage.setItem("tyc_homepage_featured_colleges", JSON.stringify(data.featured));
+              hasCloudData = true;
+            }
+            if (Array.isArray(data.heroSlides) && data.heroSlides.length > 0) {
+              setHeroSlidesList(data.heroSlides);
+              localStorage.setItem("octa_homepage_hero_slides", JSON.stringify(data.heroSlides));
               hasCloudData = true;
             }
 
@@ -1477,67 +1520,288 @@ export default function HomePage() {
     },
   ];
 
+  // Hero Banners Management Functions
+  const handleOpenAddSlide = () => {
+    setEditingSlideIndex(null);
+    setSlideForm({
+      name: "",
+      location: "",
+      image: "",
+      slug: "",
+      position: "center",
+      color: "#3b82f6",
+    });
+    setHeroSlideMessage("");
+  };
+
+  const handleOpenEditSlide = (index: number) => {
+    setEditingSlideIndex(index);
+    setSlideForm({ ...heroSlidesList[index] });
+    setHeroSlideMessage("");
+  };
+
+  const handleSaveSlideForm = () => {
+    if (!slideForm.image) {
+      alert("Please provide an image (upload or paste URL) for the slide.");
+      return;
+    }
+    if (!slideForm.name.trim()) {
+      alert("Please provide a Campus / University Name.");
+      return;
+    }
+
+    let updatedList: HeroSlide[];
+    if (editingSlideIndex !== null) {
+      updatedList = [...heroSlidesList];
+      updatedList[editingSlideIndex] = { ...slideForm };
+    } else {
+      updatedList = [...heroSlidesList, { ...slideForm }];
+    }
+
+    setHeroSlidesList(updatedList);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("octa_homepage_hero_slides", JSON.stringify(updatedList));
+    }
+
+    saveHeroSlidesToCloud(updatedList);
+    setEditingSlideIndex(null);
+    setSlideForm({
+      name: "",
+      location: "",
+      image: "",
+      slug: "",
+      position: "center",
+      color: "#3b82f6",
+    });
+    setHeroSlideMessage("Slide saved successfully!");
+    setTimeout(() => setHeroSlideMessage(""), 3000);
+  };
+
+  const handleDeleteSlide = (index: number) => {
+    if (heroSlidesList.length <= 1) {
+      alert("You must keep at least 1 hero banner slide.");
+      return;
+    }
+    if (!window.confirm(`Delete slide "${heroSlidesList[index].name}"?`)) return;
+    const updatedList = heroSlidesList.filter((_, idx) => idx !== index);
+    setHeroSlidesList(updatedList);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("octa_homepage_hero_slides", JSON.stringify(updatedList));
+    }
+    saveHeroSlidesToCloud(updatedList);
+    if (editingSlideIndex === index) {
+      handleOpenAddSlide();
+    }
+    setActiveSlide(0);
+  };
+
+  const handleMoveSlide = (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= heroSlidesList.length) return;
+    const updatedList = [...heroSlidesList];
+    const [removed] = updatedList.splice(index, 1);
+    updatedList.splice(targetIndex, 0, removed);
+    setHeroSlidesList(updatedList);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("octa_homepage_hero_slides", JSON.stringify(updatedList));
+    }
+    saveHeroSlidesToCloud(updatedList);
+    if (editingSlideIndex === index) setEditingSlideIndex(targetIndex);
+  };
+
+  const handleResetHeroSlides = () => {
+    if (!window.confirm("Reset hero banners to default campuses? Custom banners will be removed.")) return;
+    setHeroSlidesList(INITIAL_HERO_SLIDES);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("octa_homepage_hero_slides");
+      localStorage.removeItem("tyc_homepage_hero_slides");
+    }
+    saveHeroSlidesToCloud(INITIAL_HERO_SLIDES);
+    handleOpenAddSlide();
+    setActiveSlide(0);
+  };
+
+  const saveHeroSlidesToCloud = async (slides: HeroSlide[]) => {
+    setIsSavingHeroSlides(true);
+    try {
+      const res = await fetch("/api/homepage-colleges", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ heroSlides: slides }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setHeroSlideMessage("Saved & Synced to Cloud Database!");
+      }
+    } catch (err) {
+      console.warn("Could not sync to cloud, saved locally in browser:", err);
+    } finally {
+      setIsSavingHeroSlides(false);
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        // High-resolution auto-aspect canvas resizer:
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const maxW = 1920;
+        const maxH = 960;
+        let targetW = img.width;
+        let targetH = img.height;
+
+        if (targetW > maxW || targetH > maxH) {
+          const ratio = Math.min(maxW / targetW, maxH / targetH);
+          targetW = Math.round(targetW * ratio);
+          targetH = Math.round(targetH * ratio);
+        }
+
+        canvas.width = targetW;
+        canvas.height = targetH;
+
+        if (ctx) {
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, 0, 0, targetW, targetH);
+          const optimizedDataUrl = canvas.toDataURL("image/jpeg", 0.88);
+          setSlideForm((prev) => ({ ...prev, image: optimizedDataUrl }));
+        }
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const currentSlide =
+    heroSlidesList[activeSlide % heroSlidesList.length] ||
+    heroSlidesList[0] ||
+    INITIAL_HERO_SLIDES[0];
+
   return (
     <div className="space-y-12">
-      {" "}
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden -mx-6 md:-mx-8 -mt-6 md:-mt-8 mb-0.5 h-[380px] md:h-[560px] text-white flex flex-col justify-end">
-        {/* Slideshow background layer */}
-        <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSlide}
-              initial={{ opacity: 0, scale: 1.01 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0 bg-cover"
-              style={{
-                backgroundImage: `url(${heroSlides[activeSlide].image})`,
-                backgroundPosition: (heroSlides[activeSlide] as any).position || "center",
-              }}
-            />
-          </AnimatePresence>
-        </div>
+      <section className="relative overflow-hidden -mx-6 md:-mx-8 -mt-6 md:-mt-8 mb-0.5 h-[380px] md:h-[560px] text-white flex flex-col justify-end select-none">
+            {/* Slideshow background layer */}
+            <div className="absolute inset-0 z-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0, scale: 1.01 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute inset-0 bg-cover bg-no-repeat transition-all duration-700"
+                  style={{
+                    backgroundImage: `url(${currentSlide.image})`,
+                    backgroundPosition: currentSlide.position || "center",
+                  }}
+                />
+              </AnimatePresence>
+              {/* Soft gradient overlay to enhance text contrast and richness */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30 pointer-events-none" />
+            </div>
 
-        {/* Main Hero Title Overlay */}
-        <div className="absolute top-[8%] left-6 md:left-12 z-10 max-w-2xl select-none pointer-events-none">
-          <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white/95 block mb-1 drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.8)]">
-            🌟 Top Ranked Campus
-          </span>
-          <h2 
-            className="text-lg md:text-3xl lg:text-4xl font-extrabold font-outfit tracking-tight leading-none uppercase"
-            style={{ 
-              color: (heroSlides[activeSlide] as any).color || "#ffffff",
-              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.9))"
-            }}
-          >
-            {heroSlides[activeSlide].name}
-          </h2>
-          <p className="mt-1.5 text-[10px] md:text-sm font-bold text-slate-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] flex items-center gap-1.5">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-            {heroSlides[activeSlide].location}
-          </p>
-        </div>
+            {/* Top Right Admin Edit Button or Admin Login Button */}
+            <div className="absolute top-4 right-4 md:top-6 md:right-8 z-30 flex items-center gap-2">
+              {isAdmin ? (
+                <button
+                  onClick={() => setShowHeroBannerModal(true)}
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-900 backdrop-blur-md border border-cyan-400/50 text-cyan-300 hover:text-white text-xs font-black uppercase tracking-wider shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                  title="Edit hero banner photos and text"
+                >
+                  <Edit3 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <span>Edit Hero Banners ({heroSlidesList.length})</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setShowAdminLoginModal(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/40 hover:bg-slate-950/80 backdrop-blur-md border border-white/10 text-white/70 hover:text-white text-[10px] font-bold tracking-wider shadow-sm transition-all cursor-pointer opacity-70 hover:opacity-100"
+                  title="Admin login to edit banners"
+                >
+                  <Lock className="w-3 h-3 text-cyan-300" />
+                  <span>Admin Login</span>
+                </button>
+              )}
+            </div>
 
-        {/* Bottom left active slide label (Moved higher to sit above the glassmorphic panel) */}
-        <div className="absolute bottom-20 left-4 sm:bottom-24 sm:left-8 z-10 block">
-          <Link
-            href={`/colleges/${heroSlides[activeSlide].slug}`}
-            className="px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-950/85 backdrop-blur-md border border-white/10 hover:border-primary/50 text-[9px] sm:text-[10px] font-bold text-white tracking-wide transition-all hover:bg-slate-950 flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-black/25 group/hero-lbl max-w-[90vw] sm:max-w-none"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
-            <span className="font-extrabold text-slate-100 group-hover/hero-lbl:text-primary transition-colors truncate">
-              {heroSlides[activeSlide].name},{" "}
-              {heroSlides[activeSlide].location.split(",")[0]}
-            </span>
-            <span className="text-slate-400">|</span>
-            <span className="text-[9px] font-black uppercase text-primary tracking-wider flex items-center gap-0.5 flex-shrink-0">
-              View
-              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary group-hover/hero-lbl:translate-x-0.5 transition-transform" />
-            </span>
-          </Link>
-        </div>
+            {/* Left and Right Manual Slide Arrows */}
+            {heroSlidesList.length > 1 && (
+              <div className="absolute top-1/2 -translate-y-1/2 left-3 right-3 md:left-6 md:right-6 z-20 flex justify-between pointer-events-none">
+                <button
+                  onClick={() => setActiveSlide((prev) => (prev - 1 + heroSlidesList.length) % heroSlidesList.length)}
+                  className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-slate-950/60 hover:bg-slate-900/90 text-white/90 hover:text-white flex items-center justify-center backdrop-blur-md border border-white/15 shadow-xl pointer-events-auto transition-all active:scale-90 cursor-pointer"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                </button>
+                <button
+                  onClick={() => setActiveSlide((prev) => (prev + 1) % heroSlidesList.length)}
+                  className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-slate-950/60 hover:bg-slate-900/90 text-white/90 hover:text-white flex items-center justify-center backdrop-blur-md border border-white/15 shadow-xl pointer-events-auto transition-all active:scale-90 cursor-pointer"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                </button>
+              </div>
+            )}
+
+            {/* Main Hero Title Overlay */}
+            <div className="absolute top-[8%] left-6 md:left-12 z-10 max-w-2xl select-none pointer-events-none">
+              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white/95 block mb-1 drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.8)]">
+                🌟 Top Ranked Campus
+              </span>
+              <h2 
+                className="text-lg md:text-3xl lg:text-4xl font-extrabold font-outfit tracking-tight leading-none uppercase"
+                style={{ 
+                  color: currentSlide.color || "#ffffff",
+                  filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.9))"
+                }}
+              >
+                {currentSlide.name}
+              </h2>
+              <p className="mt-1.5 text-[10px] md:text-sm font-bold text-slate-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] flex items-center gap-1.5">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                {currentSlide.location}
+              </p>
+            </div>
+
+            {/* Slide Progress Dots Indicator */}
+            <div className="absolute top-[8%] right-6 md:right-12 z-20 hidden md:flex items-center gap-1.5">
+              {heroSlidesList.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveSlide(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    i === (activeSlide % heroSlidesList.length) ? "w-6 bg-cyan-400" : "w-1.5 bg-white/40 hover:bg-white/70"
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Bottom left active slide label */}
+            <div className="absolute bottom-20 left-4 sm:bottom-24 sm:left-8 z-10 block">
+              <Link
+                href={currentSlide.slug.startsWith("/") || currentSlide.slug.startsWith("http") ? currentSlide.slug : `/colleges/${currentSlide.slug}`}
+                className="px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-950/85 backdrop-blur-md border border-white/10 hover:border-primary/50 text-[9px] sm:text-[10px] font-bold text-white tracking-wide transition-all hover:bg-slate-950 flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-black/25 group/hero-lbl max-w-[90vw] sm:max-w-none"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
+                <span className="font-extrabold text-slate-100 group-hover/hero-lbl:text-primary transition-colors truncate">
+                  {currentSlide.name},{" "}
+                  {currentSlide.location.split(",")[0]}
+                </span>
+                <span className="text-slate-400">|</span>
+                <span className="text-[9px] font-black uppercase text-primary tracking-wider flex items-center gap-0.5 flex-shrink-0">
+                  View
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary group-hover/hero-lbl:translate-x-0.5 transition-transform" />
+                </span>
+              </Link>
+            </div>
 
         {/* Bottom Centered Liquid Water Glassmorphic Panel (Crystal Clear Water Look) */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1080px] px-4 sm:px-6 z-20">
@@ -2529,6 +2793,14 @@ export default function HomePage() {
                     <CheckCircle className="w-3 h-3" />
                     Admin Mode Active
                   </span>
+                  <button
+                    onClick={() => setShowHeroBannerModal(true)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[10px] font-bold transition-all cursor-pointer shadow-sm"
+                    title="Manage homepage hero banners"
+                  >
+                    <ImageIcon className="w-3 h-3" />
+                    <span>Hero Banners ({heroSlidesList.length})</span>
+                  </button>
                   <button
                     onClick={() => {
                       setEditingCollegeRow("trending");

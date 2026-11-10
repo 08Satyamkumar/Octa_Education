@@ -15,17 +15,18 @@ export async function GET() {
 
     if (error) {
       console.error("Error fetching homepage colleges from Supabase:", error);
-      return NextResponse.json({ success: false, trending: null, featured: null });
+      return NextResponse.json({ success: false, trending: null, featured: null, heroSlides: null });
     }
 
     if (data && data.description) {
       try {
         const parsed = JSON.parse(data.description);
-        if (parsed && (parsed.trending || parsed.featured)) {
+        if (parsed && (parsed.trending || parsed.featured || parsed.heroSlides)) {
           return NextResponse.json({
             success: true,
             trending: Array.isArray(parsed.trending) ? parsed.trending : null,
             featured: Array.isArray(parsed.featured) ? parsed.featured : null,
+            heroSlides: Array.isArray(parsed.heroSlides) ? parsed.heroSlides : null,
           });
         }
       } catch (e) {
@@ -33,7 +34,7 @@ export async function GET() {
       }
     }
 
-    return NextResponse.json({ success: true, trending: null, featured: null });
+    return NextResponse.json({ success: true, trending: null, featured: null, heroSlides: null });
   } catch (err: any) {
     console.error("API GET Error:", err);
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
@@ -53,17 +54,38 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json().catch(() => ({}));
-    const { trending, featured } = body;
+    const { trending, featured, heroSlides } = body;
 
-    // Validate that if trending or featured are passed, they are arrays
-    const sanitizedTrending = Array.isArray(trending) ? trending.slice(0, 50) : [];
-    const sanitizedFeatured = Array.isArray(featured) ? featured.slice(0, 50) : [];
+    // Read existing to preserve any field that wasn't passed in this request
+    let existingTrending: any[] = [];
+    let existingFeatured: any[] = [];
+    let existingHeroSlides: any[] = [];
+
+    const { data: existingData } = await dbClient
+      .from("colleges")
+      .select("description")
+      .eq("id", HOMEPAGE_CONFIG_ID)
+      .maybeSingle();
+
+    if (existingData?.description) {
+      try {
+        const parsed = JSON.parse(existingData.description);
+        if (Array.isArray(parsed.trending)) existingTrending = parsed.trending;
+        if (Array.isArray(parsed.featured)) existingFeatured = parsed.featured;
+        if (Array.isArray(parsed.heroSlides)) existingHeroSlides = parsed.heroSlides;
+      } catch (e) {}
+    }
+
+    const sanitizedTrending = Array.isArray(trending) ? trending.slice(0, 50) : existingTrending;
+    const sanitizedFeatured = Array.isArray(featured) ? featured.slice(0, 50) : existingFeatured;
+    const sanitizedHeroSlides = Array.isArray(heroSlides) ? heroSlides.slice(0, 50) : existingHeroSlides;
 
     const payload = JSON.stringify({
-      version: 1,
+      version: 2,
       updated_at: new Date().toISOString(),
       trending: sanitizedTrending,
       featured: sanitizedFeatured,
+      heroSlides: sanitizedHeroSlides,
     });
 
     const record = {
@@ -94,7 +116,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Homepage colleges saved to cloud database successfully!",
+      message: "Homepage colleges and hero banners saved to cloud database successfully!",
       updatedAt: new Date().toISOString(),
     });
   } catch (err: any) {
