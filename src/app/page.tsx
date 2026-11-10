@@ -4560,6 +4560,391 @@ export default function HomePage() {
         )}
 
         {/* HOMEPAGE COLLEGE CARD EDIT & ADD MODAL */}
+        {/* HOMEPAGE HERO BANNER EDIT & ADD MODAL */}
+        {showHeroBannerModal && (
+          <div className="fixed inset-0 bg-black/75 backdrop-blur-md z-[200] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden text-slate-800"
+            >
+              {/* Modal Header */}
+              <div className="px-6 py-4 bg-gradient-to-r from-[#1c244b] to-[#252f5c] text-white flex items-center justify-between border-b border-white/10 flex-shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20">
+                    <ImageIcon className="w-5 h-5 text-cyan-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-outfit font-black text-lg text-white">
+                      Homepage Hero Banners Manager
+                    </h3>
+                    <p className="text-xs text-blue-200">
+                      Upload campus photos, edit college details, and reorder live banners
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowHeroBannerModal(false)}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Status Message */}
+              {heroSlideMessage && (
+                <div className="bg-emerald-50 border-b border-emerald-200 px-6 py-2.5 text-emerald-800 text-xs font-bold flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                  <span>{heroSlideMessage}</span>
+                </div>
+              )}
+
+              {/* Modal Body: Two Columns */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 flex-1 overflow-y-auto divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
+                {/* Left Column: Slide List (5 cols) */}
+                <div className="lg:col-span-5 p-5 space-y-3 bg-slate-50/70 overflow-y-auto max-h-[60vh] lg:max-h-none">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black uppercase tracking-wider text-slate-500">
+                      Active Slides ({heroSlidesList.length})
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleOpenAddSlide}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      Add New Slide
+                    </button>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {heroSlidesList.map((slide, idx) => {
+                      const isSelected = editingSlideIndex === idx;
+                      return (
+                        <div
+                          key={idx}
+                          className={`p-3 rounded-2xl border transition-all ${
+                            isSelected
+                              ? "bg-blue-50/80 border-blue-500 shadow-md ring-2 ring-blue-500/20"
+                              : "bg-white border-slate-200/80 hover:border-slate-300 shadow-sm"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            {/* Slide Thumbnail */}
+                            <div
+                              className="w-16 h-12 rounded-xl bg-slate-200 bg-cover bg-center flex-shrink-0 border border-slate-200 shadow-inner"
+                              style={{ backgroundImage: `url(${slide.image})` }}
+                            />
+                            {/* Slide Info */}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-black text-slate-800 truncate">
+                                {idx + 1}. {slide.name || "Untitled Slide"}
+                              </p>
+                              <p className="text-[10px] text-slate-500 truncate mt-0.5">
+                                {slide.location || "No location"}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full border border-black/10 inline-block"
+                                  style={{ backgroundColor: slide.color || "#3b82f6" }}
+                                  title="Accent color"
+                                />
+                                <span className="text-[9px] text-slate-400 font-mono truncate">
+                                  {slide.slug || "no-link"}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Slide Actions */}
+                          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-100">
+                            <div className="flex items-center gap-1">
+                              <button
+                                type="button"
+                                onClick={() => handleMoveSlide(idx, "up")}
+                                disabled={idx === 0}
+                                className="p-1 rounded-lg hover:bg-slate-100 disabled:opacity-30 text-slate-600 cursor-pointer"
+                                title="Move up"
+                              >
+                                <ChevronLeft className="w-4 h-4 rotate-90" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleMoveSlide(idx, "down")}
+                                disabled={idx === heroSlidesList.length - 1}
+                                className="p-1 rounded-lg hover:bg-slate-100 disabled:opacity-30 text-slate-600 cursor-pointer"
+                                title="Move down"
+                              >
+                                <ChevronRight className="w-4 h-4 rotate-90" />
+                              </button>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handleOpenEditSlide(idx)}
+                                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-100 text-slate-700 hover:text-blue-700 text-[11px] font-bold transition-colors cursor-pointer"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteSlide(idx)}
+                                className="p-1 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                                title="Delete slide"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Right Column: Slide Editor Form (7 cols) */}
+                <div className="lg:col-span-7 p-6 space-y-4 overflow-y-auto">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h4 className="font-outfit font-black text-sm text-slate-800">
+                      {editingSlideIndex !== null
+                        ? `Editing Slide #${editingSlideIndex + 1}`
+                        : "Create New Banner Slide"}
+                    </h4>
+                    {editingSlideIndex !== null && (
+                      <button
+                        type="button"
+                        onClick={handleOpenAddSlide}
+                        className="text-xs text-blue-600 font-bold hover:underline cursor-pointer"
+                      >
+                        + Create New Instead
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Live Banner Preview Box */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-500">
+                      Live Banner Preview
+                    </label>
+                    <div
+                      className="relative h-44 rounded-2xl bg-slate-900 bg-cover bg-no-repeat overflow-hidden border border-slate-200 shadow-md flex flex-col justify-between p-4"
+                      style={{
+                        backgroundImage: slideForm.image ? `url(${slideForm.image})` : undefined,
+                        backgroundPosition: slideForm.position || "center",
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30 pointer-events-none" />
+                      {!slideForm.image && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
+                          <ImageIcon className="w-8 h-8 opacity-40 mb-1" />
+                          <p className="text-xs font-semibold">Upload or paste an image to preview</p>
+                        </div>
+                      )}
+                      <div className="relative z-10">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-white/80 block">
+                          🌟 Top Ranked Campus
+                        </span>
+                        <h5
+                          className="font-outfit font-black text-lg uppercase drop-shadow"
+                          style={{ color: slideForm.color || "#ffffff" }}
+                        >
+                          {slideForm.name || "Campus / University Name"}
+                        </h5>
+                        <p className="text-[10px] text-slate-200 font-bold drop-shadow">
+                          {slideForm.location || "City, State"}
+                        </p>
+                      </div>
+                      <div className="relative z-10 flex items-center justify-between">
+                        <span className="px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md text-[9px] font-bold text-white border border-white/10">
+                          {slideForm.name || "College Name"} | View &rarr;
+                        </span>
+                        <span className="text-[9px] font-bold text-white/70 bg-black/40 px-2 py-0.5 rounded-md">
+                          Fit: {slideForm.position || "center"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Image Upload Controls */}
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-black uppercase tracking-wider text-slate-600 block">
+                      Banner Image (Auto-Resized & Crystal Clear)
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* File Upload Box */}
+                      <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-blue-300 hover:border-blue-500 rounded-2xl bg-blue-50/40 hover:bg-blue-50 transition-all cursor-pointer text-center group">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          className="hidden"
+                        />
+                        <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-1.5 shadow-sm group-hover:scale-105 transition-transform">
+                          <ImageIcon className="w-5 h-5" />
+                        </div>
+                        <span className="text-xs font-extrabold text-blue-700">
+                          Upload Photo From Computer
+                        </span>
+                        <span className="text-[10px] text-slate-500 mt-0.5">
+                          Auto-fits any size (JPG, PNG, WebP)
+                        </span>
+                      </label>
+
+                      {/* URL Box */}
+                      <div className="flex flex-col justify-center space-y-1.5 p-3 rounded-2xl border border-slate-200 bg-slate-50/50">
+                        <span className="text-[11px] font-bold text-slate-600">Or Paste Image URL</span>
+                        <input
+                          type="text"
+                          value={slideForm.image}
+                          onChange={(e) => setSlideForm({ ...slideForm, image: e.target.value })}
+                          placeholder="https://... or /images/..."
+                          className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs text-slate-800 outline-none focus:border-blue-500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Inputs: Name, Location, Slug, Alignment */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-600">
+                        Campus / University Name *
+                      </label>
+                      <input
+                        type="text"
+                        value={slideForm.name}
+                        onChange={(e) => setSlideForm({ ...slideForm, name: e.target.value })}
+                        placeholder="e.g. Galgotias University Campus"
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 outline-none focus:border-blue-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-600">
+                        Location *
+                      </label>
+                      <input
+                        type="text"
+                        value={slideForm.location}
+                        onChange={(e) => setSlideForm({ ...slideForm, location: e.target.value })}
+                        placeholder="e.g. Greater Noida, Uttar Pradesh"
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 outline-none focus:border-blue-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-600">
+                        College Link / Slug
+                      </label>
+                      <input
+                        type="text"
+                        value={slideForm.slug}
+                        onChange={(e) => setSlideForm({ ...slideForm, slug: e.target.value })}
+                        placeholder="e.g. galgotias-university"
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 outline-none focus:border-blue-500"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-bold text-slate-600">
+                        Vertical Alignment / Crop Focus
+                      </label>
+                      <select
+                        value={slideForm.position || "center"}
+                        onChange={(e) => setSlideForm({ ...slideForm, position: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-800 outline-none focus:border-blue-500 cursor-pointer"
+                      >
+                        <option value="center">Center (Balanced)</option>
+                        <option value="center 20%">Center 20% (Focus on Skyline / Dome)</option>
+                        <option value="center 35%">Center 35% (Upper Building)</option>
+                        <option value="center 45%">Center 45% (Main Entrance)</option>
+                        <option value="center top">Top Aligned</option>
+                        <option value="center bottom">Bottom Aligned (Fountain / Ground)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Accent Color Selection */}
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-bold text-slate-600">
+                      Title Glow Accent Color
+                    </label>
+                    <div className="flex items-center gap-2">
+                      {["#10b981", "#3b82f6", "#f43f5e", "#ff7a00", "#ffc107", "#8b5cf6", "#06b6d4"].map((col) => (
+                        <button
+                          key={col}
+                          type="button"
+                          onClick={() => setSlideForm({ ...slideForm, color: col })}
+                          className={`w-7 h-7 rounded-full transition-transform cursor-pointer border-2 ${
+                            slideForm.color === col ? "scale-115 border-slate-900 shadow-md" : "border-white hover:scale-105"
+                          }`}
+                          style={{ backgroundColor: col }}
+                        />
+                      ))}
+                      <input
+                        type="color"
+                        value={slideForm.color || "#3b82f6"}
+                        onChange={(e) => setSlideForm({ ...slideForm, color: e.target.value })}
+                        className="w-8 h-8 rounded-full border border-slate-300 cursor-pointer p-0.5 ml-2"
+                        title="Custom Color"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Save Slide Form Action */}
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={handleSaveSlideForm}
+                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-blue-500/20 active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <Check className="w-4 h-4" />
+                      <span>{editingSlideIndex !== null ? "Update This Slide" : "Add Slide To Banner List"}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between flex-shrink-0">
+                <button
+                  type="button"
+                  onClick={handleResetHeroSlides}
+                  className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-red-600 font-bold transition-colors cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Reset to Default Campuses</span>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowHeroBannerModal(false)}
+                    className="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-bold text-slate-700 transition-all cursor-pointer"
+                  >
+                    Done
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => saveHeroSlidesToCloud(heroSlidesList)}
+                    disabled={isSavingHeroSlides}
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider shadow-md shadow-emerald-600/20 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    {isSavingHeroSlides ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <CheckCircle className="w-3.5 h-3.5" />
+                    )}
+                    <span>{isSavingHeroSlides ? "Syncing..." : "Sync To Cloud Database"}</span>
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
         {showCollegeEditModal && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
             <motion.div
