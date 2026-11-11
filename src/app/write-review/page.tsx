@@ -184,7 +184,7 @@ export default function WriteReviewPage() {
                 <span className="text-[#4D9BE6]">TA</span>
               </div>
               <span className="text-[9px] font-bold tracking-widest text-[#FFA877] uppercase leading-tight mt-0.5">
-                Educational Consultants
+                Education Consultants
               </span>
             </div>
           </div>
@@ -204,7 +204,7 @@ export default function WriteReviewPage() {
             <span className="text-[#4D9BE6]">TA</span>
           </div>
           <span className="text-[10px] font-bold tracking-widest text-[#FFA877] uppercase mt-1">
-            Educational Consultants
+            Education Consultants
           </span>
           <div className="mt-3 px-3 py-0.5 rounded-full bg-white/10 border border-white/15">
             <span className="text-[9px] uppercase tracking-[0.22em] font-extrabold text-blue-100">

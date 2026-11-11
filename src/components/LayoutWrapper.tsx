@@ -1829,7 +1829,7 @@ export default function LayoutWrapper({
             <div className="relative flex items-center justify-center">
               <img
                 src="/octa-emblem.png"
-                alt="Octa Educational Consultants"
+                alt="Octa Education Consultants"
                 className="h-11 sm:h-12 md:h-14 w-auto object-contain drop-shadow-[0_3px_12px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-105"
               />
             </div>
@@ -1845,7 +1845,7 @@ export default function LayoutWrapper({
                 </span>
               </div>
               <span className="text-[7.5px] sm:text-[8px] md:text-[9px] font-black tracking-[0.2em] text-[#FFA877] uppercase leading-none mt-1 drop-shadow-sm whitespace-nowrap">
-                Educational Consultants
+                Education Consultants
               </span>
             </div>
           </Link>
@@ -3194,7 +3194,7 @@ export default function LayoutWrapper({
                 >
                   <img
                     src="/octa-emblem.png"
-                    alt="Octa Educational Consultants"
+                    alt="Octa Education Consultants"
                     className="h-10 w-auto object-contain drop-shadow-sm"
                   />
                   <div className="flex flex-col justify-center">
@@ -3207,7 +3207,7 @@ export default function LayoutWrapper({
                       </span>
                     </div>
                     <span className="text-[7.5px] font-black tracking-[0.18em] text-[#FF7A29] uppercase mt-0.5 whitespace-nowrap">
-                      Educational Consultants
+                      Education Consultants
                     </span>
                   </div>
                 </Link>
@@ -3619,7 +3619,7 @@ export default function LayoutWrapper({
             <div className="flex items-center gap-3 select-none py-1 shrink-0">
               <img
                 src="/octa-emblem.png"
-                alt="Octa Educational Consultants"
+                alt="Octa Education Consultants"
                 className="h-11 md:h-13 w-auto object-contain drop-shadow-sm"
               />
               <div className="flex flex-col justify-center">
@@ -3632,14 +3632,14 @@ export default function LayoutWrapper({
                   </span>
                 </div>
                 <span className="text-[8px] md:text-[9px] font-black tracking-[0.2em] text-[#FFA877] uppercase leading-none mt-1 whitespace-nowrap">
-                  Educational Consultants
+                  Education Consultants
                 </span>
               </div>
             </div>
 
             {/* Middle: Copyright & Developed By */}
             <p className="text-[11px] text-slate-300 text-center">
-              © 2026 Octa Educational Consultants. All Rights Reserved. Developed By{" "}
+              © 2026 Octa Education Consultants. All Rights Reserved. Developed By{" "}
               <a
                 href="https://vecttor.world"
                 target="_blank"
@@ -3898,7 +3898,7 @@ export default function LayoutWrapper({
                         <span className="text-[#4D9BE6]">TA</span>
                       </div>
                       <span className="text-[8px] font-bold tracking-widest text-[#FFA877] uppercase leading-tight mt-0.5">
-                        Educational Consultants
+                        Education Consultants
                       </span>
                     </div>
                   </div>

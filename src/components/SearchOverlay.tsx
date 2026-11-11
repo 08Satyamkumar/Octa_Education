@@ -124,7 +124,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                   <span className="text-[#2563EB]">TA</span>
                 </div>
                 <span className="text-[8px] md:text-[9px] font-bold tracking-widest text-[#FF7A29] uppercase leading-tight mt-0.5">
-                  Educational Consultants
+                  Education Consultants
                 </span>
               </div>
             </div>
