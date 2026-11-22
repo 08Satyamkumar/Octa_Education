@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   PhoneCall,
   MapPin,
@@ -11,16 +12,39 @@ import {
   MessageSquare,
 } from "lucide-react";
 
-export default function ContactPage() {
+function ContactContent() {
+  const searchParams = useSearchParams();
+  const queryCourse = searchParams.get("course") || "Engineering";
+  const queryCollege = searchParams.get("college") || "";
+  const querySubject = searchParams.get("subject") || "";
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    course: "Engineering",
+    course: queryCourse,
     marks: "",
-    msg: "",
+    msg: queryCollege
+      ? `Interested in: ${queryCollege}`
+      : querySubject
+      ? `Subject: ${querySubject}`
+      : "",
   });
+
+  useEffect(() => {
+    if (queryCourse || queryCollege || querySubject) {
+      setFormData((prev) => ({
+        ...prev,
+        course: queryCourse || prev.course,
+        msg: queryCollege
+          ? `Interested in: ${queryCollege}`
+          : querySubject
+          ? `Subject: ${querySubject}`
+          : prev.msg,
+      }));
+    }
+  }, [queryCourse, queryCollege, querySubject]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -308,5 +332,22 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="py-24 text-center space-y-3">
+          <div className="w-10 h-10 rounded-full border-4 border-primary border-t-transparent animate-spin mx-auto" />
+          <p className="font-outfit font-bold text-text_secondary text-xs uppercase tracking-wider">
+            Loading Contact Portal...
+          </p>
+        </div>
+      }
+    >
+      <ContactContent />
+    </Suspense>
   );
 }

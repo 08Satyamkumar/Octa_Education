@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { 
   Sparkles, 
   Search, 
@@ -363,12 +364,12 @@ export default function ScholarshipPage() {
                   <p className="text-xs text-slate-500 font-semibold max-w-sm mx-auto leading-relaxed">
                     Don't worry! You can book a free profile session with our counselor to check alternative college tuition waivers.
                   </p>
-                  <button 
-                    onClick={() => alert("Connecting with Counselor...")}
-                    className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all"
+                  <Link 
+                    href={`/contact?course=${encodeURIComponent(stream)}&subject=ScholarshipGuidance`}
+                    className="inline-block px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-95 text-center"
                   >
                     Consult counselor
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -422,13 +423,13 @@ export default function ScholarshipPage() {
                       </div>
 
                       {/* Action trigger button */}
-                      <button 
-                        onClick={() => alert(`Redirecting to registration portal for: ${scheme.name}`)}
-                        className="w-full mt-auto py-2 bg-slate-950 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1 shadow-sm active:scale-95"
+                      <Link 
+                        href={`/contact?course=${encodeURIComponent(stream)}&college=${encodeURIComponent(scheme.name)}`}
+                        className="w-full mt-auto py-2 bg-slate-950 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1 shadow-sm active:scale-95 text-center"
                       >
                         {scheme.actionText}
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
+                      </Link>
                     </div>
                   ))}
                 </div>

@@ -1615,7 +1615,7 @@ function PredictorContent() {
                       View College
                     </Link>
                     <Link
-                      href="/counseling"
+                      href={`/contact?course=${encodeURIComponent(selectedStream)}&college=${encodeURIComponent(college.name)}`}
                       className="flex-1 py-2 text-center bg-[#f26522] hover:bg-[#d9531e] text-white font-bold text-xs rounded-xl shadow-xs transition-all"
                     >
                       Get Counseling
@@ -1638,7 +1638,7 @@ function PredictorContent() {
               </div>
 
               <Link
-                href="/counseling"
+                href="/contact?subject=ChoiceFillingOrder"
                 className="px-6 py-3 bg-[#f26522] hover:bg-orange-600 text-white font-black text-xs rounded-xl shadow-lg shadow-orange-500/25 active:scale-95 transition-all flex items-center gap-2 whitespace-nowrap"
               >
                 <FileText className="w-4 h-4" />
