@@ -1752,14 +1752,24 @@ export default function HomePage() {
             {/* Top Right Admin Edit Button or Admin Login Button */}
             <div className="absolute top-4 right-4 md:top-6 md:right-8 z-30 flex items-center gap-2">
               {isAdmin ? (
-                <button
-                  onClick={() => setShowHeroBannerModal(true)}
-                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-900 backdrop-blur-md border border-cyan-400/50 text-cyan-300 hover:text-white text-xs font-black uppercase tracking-wider shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                  title="Edit hero banner photos and text"
-                >
-                  <Edit3 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-                  <span>Edit Hero Banners ({heroSlidesList.length})</span>
-                </button>
+                <>
+                  <Link
+                    href="/partner-leads"
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-orange-600/90 hover:bg-orange-600 backdrop-blur-md border border-orange-400/50 text-white text-xs font-black uppercase tracking-wider shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    title="View Student Leads CRM"
+                  >
+                    <Users className="w-3.5 h-3.5 text-white" />
+                    <span>Leads CRM</span>
+                  </Link>
+                  <button
+                    onClick={() => setShowHeroBannerModal(true)}
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950/80 hover:bg-slate-900 backdrop-blur-md border border-cyan-400/50 text-cyan-300 hover:text-white text-xs font-black uppercase tracking-wider shadow-xl shadow-black/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    title="Edit hero banner photos and text"
+                  >
+                    <Edit3 className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                    <span>Edit Hero Banners ({heroSlidesList.length})</span>
+                  </button>
+                </>
               ) : (
                 <button
                   onClick={() => setShowAdminLoginModal(true)}

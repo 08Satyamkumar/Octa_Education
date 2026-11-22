@@ -3651,7 +3651,14 @@ export default function LayoutWrapper({
             </p>
 
             {/* Right: Bottom Links */}
-            <div className="flex flex-wrap justify-center md:justify-end gap-4 text-[10px] text-slate-400 shrink-0">
+            <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 text-[10px] text-slate-400 shrink-0">
+              <Link
+                href="/partner-leads"
+                className="text-orange-400 hover:text-orange-300 font-bold transition-colors inline-flex items-center gap-1 bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg border border-orange-400/30"
+                title="Student Leads & CRM Dashboard"
+              >
+                <span>📊 Leads CRM</span>
+              </Link>
               {[
                 "Grievances",
                 "Notices / Summons",
