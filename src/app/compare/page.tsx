@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 import { 
   Search, 
   MapPin, 
@@ -59,13 +60,114 @@ function CompareContent() {
   const [comparedColleges, setComparedColleges] = useState<College[]>([]);
 
   useEffect(() => {
-    if (idsParam) {
-      const ids = idsParam.split(",");
-      const colleges = mockColleges.filter(c => ids.includes(c.id) || ids.includes(c.slug));
+    async function loadColleges() {
+      if (!idsParam) {
+        setComparedColleges([]);
+        return;
+      }
+      const rawIds = idsParam
+        .split(",")
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean);
+
+      if (rawIds.length === 0) {
+        setComparedColleges([]);
+        return;
+      }
+
+      try {
+        const { data } = await supabase
+          .from("colleges")
+          .select("id, name, location, state, city, tuition_fees, rating, slug, image_url, description, ownership")
+          .or(
+            `slug.in.(${rawIds.map((s) => `"${s}"`).join(",")}),id.in.(${rawIds
+              .filter((s) => s.length > 30)
+              .map((s) => `"${s}"`)
+              .join(",")})`
+          );
+
+        if (data && data.length > 0) {
+          const mapped: College[] = data.map((c) => {
+            let descObj: any = {};
+            try {
+              descObj =
+                typeof c.description === "string"
+                  ? JSON.parse(c.description)
+                  : c.description || {};
+            } catch {}
+
+            const stream =
+              (descObj.streams && descObj.streams[0]) ||
+              descObj.stream ||
+              "Engineering";
+
+            const highestStr =
+              descObj.highestPackage ||
+              descObj.highest_package ||
+              "35.0 Lakhs PA";
+            const numMatch = highestStr.match(/([0-9.]+)\s*(Cr|Lakh|LPA)?/i);
+            let numHighest = 35.0;
+            if (numMatch) {
+              const val = parseFloat(numMatch[1]);
+              numHighest = numMatch[2]?.toLowerCase().includes("cr")
+                ? val * 100
+                : val;
+            }
+
+            const feeStr = c.tuition_fees || "₹2.2 Lakhs/Yr";
+            const feeMatch = feeStr.match(/([0-9.]+)/);
+            const numFees = feeMatch ? parseFloat(feeMatch[1]) : 2.0;
+
+            const logoLetters = (c.name || "COL")
+              .split(" ")
+              .filter(Boolean)
+              .map((w: string) => w[0])
+              .join("")
+              .substring(0, 4)
+              .toUpperCase();
+
+            return {
+              id: c.id,
+              name: c.name,
+              location: c.city ? `${c.city}, ${c.state}` : c.location || "India",
+              state: c.state || "India",
+              stream,
+              type: c.ownership || "Private",
+              fees: numFees,
+              feesLabel: feeStr,
+              highestPackage: numHighest,
+              highestPackageLabel: highestStr,
+              rating: parseFloat(c.rating) || 4.5,
+              slug: c.slug || c.id,
+              logo: logoLetters || "OCTA",
+            };
+          });
+
+          // Merge with any matching mockColleges for missing ids
+          const fetchedSlugs = new Set(mapped.map((m) => m.slug.toLowerCase()));
+          const extraMocks = mockColleges
+            .filter(
+              (m) =>
+                rawIds.includes(m.id) ||
+                rawIds.includes(m.slug.toLowerCase())
+            )
+            .filter((m) => !fetchedSlugs.has(m.slug.toLowerCase()));
+
+          setComparedColleges([...mapped, ...extraMocks]);
+          return;
+        }
+      } catch (err) {
+        console.warn("Supabase compare fetch error:", err);
+      }
+
+      // Fallback to mockColleges
+      const colleges = mockColleges.filter(
+        (c) => rawIds.includes(c.id) || rawIds.includes(c.slug)
+      );
       setComparedColleges(colleges);
-    } else {
-      setComparedColleges([]);
     }
+
+    loadColleges();
   }, [idsParam]);
 
   const handleRemoveCollege = (id: string) => {

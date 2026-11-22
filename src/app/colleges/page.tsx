@@ -23,6 +23,7 @@ import {
   Layers,
   Compass,
   GraduationCap,
+  PhoneCall,
   Link as LinkIcon,
   Check,
   CheckCircle,
@@ -847,6 +848,16 @@ function CollegesListContent() {
             ...prev,
           ]);
           setTotalCount((prev) => prev + 1);
+
+          if (formattedCity) {
+            setDiscoveredCities((prev) => Array.from(new Set([formattedCity, ...prev])));
+          }
+          if (formattedState) {
+            setDiscoveredStates((prev) => Array.from(new Set([formattedState, ...prev])));
+          }
+          if (addStreams.length > 0) {
+            setDiscoveredStreams((prev) => Array.from(new Set([...addStreams, ...prev])));
+          }
         }
         setShowAddModal(false);
         // Reset form
@@ -9586,26 +9597,41 @@ function CollegesListContent() {
                       );
                     })
                   ) : (
-                    <div className="py-16 px-4 bg-white border border-slate-200 rounded-3xl text-center space-y-4">
-                      <div className="w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 mx-auto">
-                        <HelpCircle className="w-8 h-8" />
+                    <div className="py-12 px-6 bg-gradient-to-b from-white to-slate-50/50 border border-slate-200/90 rounded-3xl text-center space-y-5 shadow-sm max-w-xl mx-auto">
+                      <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-orange-500 mx-auto shadow-sm">
+                        <GraduationCap className="w-8 h-8" />
                       </div>
-                      <div className="space-y-1">
-                        <h3 className="font-outfit font-black text-lg text-slate-800">
-                          No Colleges Found
+                      <div className="space-y-2">
+                        <span className="inline-block text-[10px] font-black uppercase tracking-wider text-orange-600 bg-orange-100/60 px-3 py-1 rounded-full">
+                          Custom Admission Assistance
+                        </span>
+                        <h3 className="font-outfit font-black text-xl text-slate-800">
+                          {selectedStates.length > 0 || selectedCities.length > 0
+                            ? `Looking for Colleges in ${selectedStates.join(", ") || selectedCities.join(", ")}?`
+                            : "No Colleges Found for Active Filter"}
                         </h3>
-                        <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                          We couldn't find any colleges matching your active
-                          filters. Try adjusting or clearing filters to browse
-                          others.
+                        <p className="text-xs text-slate-600 font-medium leading-relaxed max-w-md mx-auto">
+                          Octa Education counselors have direct institutional partnerships across India. Connect right now for verified fee structures, Bihar Student Credit Card eligibility, and direct admission guidance.
                         </p>
                       </div>
-                      <button
-                        onClick={clearAllFilters}
-                        className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-95"
-                      >
-                        Clear All Filters
-                      </button>
+
+                      <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                        <a
+                          href="https://wa.me/919958405406?text=Hello%20Octa%20Education,%20I%20am%20looking%20for%20admission%20guidance"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-all active:scale-95"
+                        >
+                          <PhoneCall className="w-4 h-4" />
+                          Chat on WhatsApp
+                        </a>
+                        <button
+                          onClick={clearAllFilters}
+                          className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black uppercase tracking-wider rounded-xl border border-slate-200 shadow-sm transition-all active:scale-95"
+                        >
+                          Clear All Filters
+                        </button>
+                      </div>
                     </div>
                   )}
                 </AnimatePresence>

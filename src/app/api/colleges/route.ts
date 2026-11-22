@@ -189,10 +189,32 @@ function applyFilters(query: any, { search, stream, course, state, city, ownersh
     }
   }
   if (state) {
-    query = query.in("state", state.split(","));
+    const rawStates = state.split(",").map((s: string) => s.trim()).filter(Boolean);
+    const expanded: string[] = [];
+    for (const s of rawStates) {
+      expanded.push(s);
+      if (s.toLowerCase() === "delhi ncr" || s.toLowerCase() === "delhi") {
+        expanded.push("Delhi", "Delhi NCR", "New Delhi");
+      }
+      if (s.toLowerCase().includes("uttar pradesh") || s.toLowerCase() === "up") {
+        expanded.push("Uttar Pradesh", "UP");
+      }
+    }
+    query = query.in("state", Array.from(new Set(expanded)));
   }
   if (city) {
-    query = query.in("city", city.split(","));
+    const rawCities = city.split(",").map((c: string) => c.trim()).filter(Boolean);
+    const expandedCities: string[] = [];
+    for (const c of rawCities) {
+      expandedCities.push(c);
+      if (c.toLowerCase() === "delhi" || c.toLowerCase() === "new delhi") {
+        expandedCities.push("Delhi", "New Delhi");
+      }
+      if (c.toLowerCase() === "gurgaon" || c.toLowerCase() === "gurugram") {
+        expandedCities.push("Gurgaon", "Gurugram");
+      }
+    }
+    query = query.in("city", Array.from(new Set(expandedCities)));
   }
   if (ownership) {
     const ownershipValues = ownership.split(",").map((val: string) => val.trim().toLowerCase());

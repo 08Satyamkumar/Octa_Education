@@ -17,19 +17,16 @@ export function verifyCredentials(username?: string, password?: string): boolean
   const u = username.trim().toLowerCase();
   const p = password.trim();
 
-  // Valid passwords for admin (includes defaults so it always works even without env vars on Vercel)
+  // Valid passwords for admin (hardened: weak defaults like admin/admin123 removed)
   const validAdminPasswords = new Set([
     adminPass,
     "1311161161",
     "Octa@2026",
-    "admin",
-    "admin123",
   ]);
 
   const validAdminUsers = new Set([
     adminUser,
     "samrat1311",
-    "admin",
     "octa",
     "octaeducation",
   ]);
