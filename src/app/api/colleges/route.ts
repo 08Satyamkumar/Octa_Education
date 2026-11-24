@@ -4,24 +4,31 @@ import { supabase } from "@/lib/supabase";
 function getStreamFilterClauses(s: string): string[] {
   const clean = s.trim();
   const lower = clean.toLowerCase();
+
+  if (lower === "pgdm") {
+    return [
+      "courses_count.ilike.%PGDM%",
+      'description.ilike.%"is_featured_pgdm":true%',
+      'description.ilike.%"PGDM"%',
+      "name.ilike.%PGDM%",
+    ];
+  }
+
   const clauses: string[] = [
     `description.ilike.%${clean}%`,
     `name.ilike.%${clean}%`,
     `courses_count.ilike.%${clean}%`,
   ];
 
-  if (lower.includes("manage") || lower === "mba" || lower === "pgdm") {
+  if (lower.includes("manage") || lower === "mba") {
     clauses.push(
       "description.ilike.%Management%",
       "description.ilike.%MBA%",
-      "description.ilike.%PGDM%",
       "name.ilike.%Management%",
       "name.ilike.%Business%",
       "name.ilike.%MBA%",
-      "name.ilike.%PGDM%",
       "courses_count.ilike.%Management%",
       "courses_count.ilike.%MBA%",
-      "courses_count.ilike.%PGDM%",
       "courses_count.ilike.%BBA%"
     );
   } else if (lower.includes("engineer") || lower.includes("tech")) {
@@ -116,6 +123,17 @@ function getStreamFilterClauses(s: string): string[] {
 function getCourseFilterClauses(c: string): string[] {
   const clean = c.trim();
   const lower = clean.toLowerCase();
+
+  // Strict PGDM matching: only colleges explicitly offering PGDM or marked as featured PGDM
+  if (lower === "pgdm") {
+    return [
+      "courses_count.ilike.%PGDM%",
+      'description.ilike.%"is_featured_pgdm":true%',
+      'description.ilike.%"PGDM"%',
+      "name.ilike.%PGDM%",
+    ];
+  }
+
   const clauses: string[] = [
     `courses_count.ilike.%${clean}%`,
     `description.ilike.%${clean}%`,
@@ -137,14 +155,11 @@ function getCourseFilterClauses(c: string): string[] {
       "courses_count.ilike.%MTech%",
       "description.ilike.%MTech%"
     );
-  } else if (lower === "mba" || lower === "pgdm") {
+  } else if (lower === "mba") {
     clauses.push(
       "courses_count.ilike.%MBA%",
-      "courses_count.ilike.%PGDM%",
-      "description.ilike.%MBA%",
-      "description.ilike.%PGDM%",
-      "name.ilike.%Management%",
-      "name.ilike.%Business%"
+      'description.ilike.%"MBA"%',
+      "name.ilike.%MBA%"
     );
   } else if (lower === "bba") {
     clauses.push("courses_count.ilike.%BBA%", "description.ilike.%BBA%");
@@ -258,7 +273,7 @@ export async function GET(request: Request) {
       const { data: featuredData, error: featErr } = await supabase
         .from("colleges")
         .select("*")
-        .or('description.ilike.%"is_featured_pgdm":true%,name.ilike.%GIMS%')
+        .or('description.ilike.%"is_featured_pgdm":true%,courses_count.ilike.%PGDM%,description.ilike.%"courses":%"PGDM"%,name.ilike.%GIMS%')
         .order("created_at", { ascending: false })
         .limit(limit);
 

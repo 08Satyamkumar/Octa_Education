@@ -7683,18 +7683,16 @@ function CollegesListContent() {
           setTotalPages(data.pages || 1);
           setTotalCount(data.total || 0);
         } else {
-          // Fallback to rich mock data for instant demo
-          const start = (page - 1) * 12;
-          setCollegesList(mockColleges.slice(start, start + 12));
-          setTotalPages(Math.max(1, Math.ceil(mockColleges.length / 12)));
-          setTotalCount(mockColleges.length);
+          // If no colleges found in DB for current filter/search, set empty list so lead card shows
+          setCollegesList([]);
+          setTotalPages(1);
+          setTotalCount(0);
         }
       } catch (err) {
-        console.warn("Using offline mock colleges for demo:", err);
-        const start = (page - 1) * 12;
-        setCollegesList(mockColleges.slice(start, start + 12));
-        setTotalPages(Math.max(1, Math.ceil(mockColleges.length / 12)));
-        setTotalCount(mockColleges.length);
+        console.warn("Error fetching colleges:", err);
+        setCollegesList([]);
+        setTotalPages(1);
+        setTotalCount(0);
       } finally {
         setLoading(false);
       }
@@ -7776,67 +7774,107 @@ function CollegesListContent() {
     sortBy,
   ]);
 
-  // Define filteredColleges alias for zero-break compatibility with existing template code
+  // Define filteredColleges alias with strict course & stream compatibility
   const filteredColleges = useMemo(() => {
-    if (selectedStreams.length === 0) return collegesList;
-    return collegesList.filter((c) => {
-      // 1. If college has explicit streams array from description
-      if (Array.isArray(c.streams) && c.streams.length > 0) {
-        const hasMatchingStream = c.streams.some((st: string) =>
-          selectedStreams.some(
-            (sel) => sel.toLowerCase().trim() === st.toLowerCase().trim()
-          )
-        );
-        if (hasMatchingStream) return true;
-      }
-      // 2. Check c.stream single property
-      if (c.stream) {
-        const matchesPrimary = selectedStreams.some(
-          (sel) => sel.toLowerCase().trim() === c.stream.toLowerCase().trim()
-        );
-        if (matchesPrimary) return true;
-      }
-      // 3. Fallback: check college name or courses_count for smart matching
-      const nameLower = (c.name || "").toLowerCase();
-      const coursesLower = (c.courses_count || "").toLowerCase();
-      return selectedStreams.some((sel) => {
-        const s = sel.toLowerCase().trim();
-        if (s.includes("manage") || s === "mba" || s === "pgdm") {
-          return (
-            nameLower.includes("business") ||
-            nameLower.includes("management") ||
-            nameLower.includes("mba") ||
-            coursesLower.includes("mba") ||
-            coursesLower.includes("pgdm")
-          );
-        }
-        if (s.includes("engineer") || s.includes("tech")) {
-          return (
-            nameLower.includes("engineering") ||
-            nameLower.includes("technology") ||
-            nameLower.includes("tech") ||
-            coursesLower.includes("btech") ||
-            coursesLower.includes("b.tech")
-          );
-        }
-        if (s.includes("medic")) {
-          return (
-            nameLower.includes("medical") ||
-            nameLower.includes("hospital") ||
-            coursesLower.includes("mbbs")
-          );
-        }
-        if (s.includes("law")) {
-          return (
-            nameLower.includes("law") ||
-            nameLower.includes("legal") ||
-            coursesLower.includes("llb")
-          );
-        }
-        return nameLower.includes(s) || coursesLower.includes(s);
+    let list = collegesList;
+
+    // 1. Strict filter by selectedCourses if any
+    if (selectedCourses.length > 0) {
+      list = list.filter((c) => {
+        return selectedCourses.some((selCourse) => {
+          const sc = selCourse.toLowerCase().trim();
+          const coursesLower = (c.courses_count || "").toLowerCase();
+          const nameLower = (c.name || "").toLowerCase();
+          const descLower = (c.description || "").toLowerCase();
+          const hasCourseInArr = Array.isArray(c.courses) && c.courses.some((crs: string) => crs.toLowerCase() === sc);
+
+          if (sc === "pgdm") {
+            return (
+              hasCourseInArr ||
+              coursesLower.includes("pgdm") ||
+              nameLower.includes("pgdm") ||
+              descLower.includes('"is_featured_pgdm":true') ||
+              descLower.includes('"pgdm"')
+            );
+          }
+          if (sc === "mba") {
+            return hasCourseInArr || coursesLower.includes("mba") || nameLower.includes("mba") || descLower.includes('"mba"');
+          }
+          return hasCourseInArr || coursesLower.includes(sc) || nameLower.includes(sc);
+        });
       });
-    });
-  }, [collegesList, selectedStreams]);
+    }
+
+    // 2. Filter by selectedStreams if any
+    if (selectedStreams.length > 0) {
+      list = list.filter((c) => {
+        if (Array.isArray(c.streams) && c.streams.length > 0) {
+          const hasMatchingStream = c.streams.some((st: string) =>
+            selectedStreams.some(
+              (sel) => sel.toLowerCase().trim() === st.toLowerCase().trim()
+            )
+          );
+          if (hasMatchingStream) return true;
+        }
+        if (c.stream) {
+          const matchesPrimary = selectedStreams.some(
+            (sel) => sel.toLowerCase().trim() === c.stream.toLowerCase().trim()
+          );
+          if (matchesPrimary) return true;
+        }
+        const nameLower = (c.name || "").toLowerCase();
+        const coursesLower = (c.courses_count || "").toLowerCase();
+        const descLower = (c.description || "").toLowerCase();
+        return selectedStreams.some((sel) => {
+          const s = sel.toLowerCase().trim();
+          if (s === "pgdm") {
+            const hasPgdmCourse = Array.isArray(c.courses) && c.courses.some((crs: string) => crs.toLowerCase() === "pgdm");
+            return (
+              hasPgdmCourse ||
+              coursesLower.includes("pgdm") ||
+              nameLower.includes("pgdm") ||
+              descLower.includes('"is_featured_pgdm":true') ||
+              descLower.includes('"pgdm"')
+            );
+          }
+          if (s.includes("manage") || s === "mba") {
+            return (
+              nameLower.includes("business") ||
+              nameLower.includes("management") ||
+              nameLower.includes("mba") ||
+              coursesLower.includes("mba")
+            );
+          }
+          if (s.includes("engineer") || s.includes("tech")) {
+            return (
+              nameLower.includes("engineering") ||
+              nameLower.includes("technology") ||
+              nameLower.includes("tech") ||
+              coursesLower.includes("btech") ||
+              coursesLower.includes("b.tech")
+            );
+          }
+          if (s.includes("medic")) {
+            return (
+              nameLower.includes("medical") ||
+              nameLower.includes("hospital") ||
+              coursesLower.includes("mbbs")
+            );
+          }
+          if (s.includes("law")) {
+            return (
+              nameLower.includes("law") ||
+              nameLower.includes("legal") ||
+              coursesLower.includes("llb")
+            );
+          }
+          return nameLower.includes(s) || coursesLower.includes(s);
+        });
+      });
+    }
+
+    return list;
+  }, [collegesList, selectedStreams, selectedCourses]);
 
   // Read More inline toggle helper
   const [expandedDescriptions, setExpandedDescriptions] = useState<string[]>(
