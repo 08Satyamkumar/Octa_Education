@@ -61,11 +61,11 @@ export async function generateMetadata(
 
   const title = `${collegeName} (${city}) - Admission 2026, Fees, Placements, Cutoff & Ranking | Octa Education`;
   const description = `${collegeName}, ${city}, ${state} Admission 2026. Check verified fee structure (${tuitionFees || "Affordable"}), placement stats (${highestPackage}${avgPackage ? `, Avg: ${avgPackage}` : ""}), NIRF rank, courses, and student rating (${rating}/5) on Octa Education.`;
-  const canonicalUrl = `https://www.octaeducation.com/colleges/${cleanSlug}`;
+  const canonicalUrl = `https://www.octaeducations.com/colleges/${cleanSlug}`;
   const ogImage =
     college.image_url ||
     descObj.image ||
-    "https://www.octaeducation.com/images/iitdelhi_real.jpg";
+    "https://www.octaeducations.com/images/iitdelhi_real.jpg";
 
   return {
     title,
@@ -135,14 +135,14 @@ export default async function CollegeLayout({
   const state = college?.state || "India";
   const ratingValue = college?.rating || 4.5;
   const imageUrl =
-    college?.image_url || "https://www.octaeducation.com/images/iitdelhi_real.jpg";
+    college?.image_url || "https://www.octaeducations.com/images/iitdelhi_real.jpg";
 
   // Google EducationalOrganization / CollegeOrUniversity Schema
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollegeOrUniversity",
     name: collegeName,
-    url: `https://www.octaeducation.com/colleges/${cleanSlug}`,
+    url: `https://www.octaeducations.com/colleges/${cleanSlug}`,
     image: imageUrl,
     address: {
       "@type": "PostalAddress",
