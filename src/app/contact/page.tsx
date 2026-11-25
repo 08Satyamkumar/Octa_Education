@@ -86,12 +86,16 @@ function ContactContent() {
       address:
         "Boring Road Crossing, Near Bank of Baroda, Patna, Bihar - 800001",
       phone: "+91 9958405406",
+      mapUrl:
+        "https://www.google.com/maps/dir/?api=1&destination=Boring+Road+Crossing,+Patna,+Bihar+800001",
     },
     {
       city: "Delhi-NCR Branch Office",
       address:
-        "Alpha 1, Greater Noida, Near Metro Station, Uttar Pradesh - 201308",
+        "16 & 17, 2nd Floor, Parsvnath Bibhab Plaza, Alpha 1 Commercial Belt, Greater Noida, Uttar Pradesh - 201310",
       phone: "+91 9473332444",
+      mapUrl:
+        "https://www.google.com/maps/dir/?api=1&destination=16+%26+17,+2nd+Floor,+Parsvnath+Bibhab+Plaza,+Alpha+1+Commercial+Belt,+Greater+Noida,+Uttar+Pradesh+201310",
     },
   ];
 
@@ -318,13 +322,28 @@ function ContactContent() {
             <div className="space-y-4 divide-y divide-border/60">
               {offices.map((office, idx) => (
                 <div key={idx} className={`space-y-2 ${idx > 0 ? "pt-4" : ""}`}>
-                  <h4 className="font-outfit font-bold text-xs text-text_primary flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    {office.city}
-                  </h4>
-                  <p className="text-[11px] text-text_secondary leading-relaxed font-semibold pl-6">
+                  <div className="flex items-center justify-between gap-2">
+                    <h4 className="font-outfit font-bold text-xs text-text_primary flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-primary" />
+                      {office.city}
+                    </h4>
+                    <a
+                      href={office.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-black text-orange-600 hover:text-orange-700 dark:text-orange-400 uppercase tracking-wider flex items-center gap-1"
+                    >
+                      Directions ↗
+                    </a>
+                  </div>
+                  <a
+                    href={office.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-[11px] text-text_secondary hover:text-primary transition-colors leading-relaxed font-semibold pl-6"
+                  >
                     {office.address}
-                  </p>
+                  </a>
                 </div>
               ))}
             </div>

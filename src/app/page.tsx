@@ -3823,18 +3823,19 @@ export default function HomePage() {
 
             {/* Address 2 - Greater Noida */}
             <a
-              href="https://www.google.com/maps/search/Alpha+1,+Greater+Noida,+Uttar+Pradesh"
+              href="https://www.google.com/maps/dir/?api=1&destination=16+%26+17,+2nd+Floor,+Parsvnath+Bibhab+Plaza,+Alpha+1+Commercial+Belt,+Greater+Noida,+Uttar+Pradesh+201310"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline"
+              className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200/50 rounded-2xl sm:rounded-full shadow-sm hover:scale-[1.01] hover:border-blue-500 transition-all duration-200 cursor-pointer no-underline group/addr"
+              title="Click for Google Maps Directions"
             >
-              <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[#032b53] flex items-center justify-center text-white shrink-0 group-hover/addr:bg-blue-600 transition-colors">
                 <MapPin className="w-4 h-4" />
               </div>
-              <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide truncate">
+              <span className="text-xs sm:text-sm font-black text-slate-800 tracking-wide leading-snug">
                 Address:{" "}
-                <span className="text-slate-600 hover:text-orange-500 transition-colors">
-                  Alpha 1, Greater Noida, Uttar Pradesh
+                <span className="text-slate-600 font-medium group-hover/addr:text-blue-600 transition-colors">
+                  16 & 17, 2nd Floor, Parsvnath Bibhab Plaza, Alpha 1 Commercial Belt, Greater Noida, UP - 201310
                 </span>
               </span>
             </a>
