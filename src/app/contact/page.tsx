@@ -273,7 +273,7 @@ function ContactContent() {
               </a>
 
               <a
-                href="mailto:Atulkasana777@gmail.com"
+                href="mailto:info@octaeducations.com"
                 className="flex items-center gap-4 p-3 bg-background border border-border hover:border-primary/20 rounded-2xl transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
@@ -284,7 +284,7 @@ function ContactContent() {
                     Official Mail Helpdesk
                   </p>
                   <p className="font-outfit font-extrabold text-sm text-text_primary">
-                    Atulkasana777@gmail.com
+                    info@octaeducations.com
                   </p>
                 </div>
               </a>
