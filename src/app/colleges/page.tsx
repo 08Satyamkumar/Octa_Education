@@ -33,6 +33,7 @@ import {
   Edit,
   Loader2,
   TrendingUp,
+  ArrowUpDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -603,6 +604,12 @@ function CollegesListContent() {
   >([]);
   const [sortBy, setSortBy] = useState("popularity");
   const [shortlisted, setShortlisted] = useState<string[]>([]);
+
+  // Mobile Horizontal Quick Filter Bar States
+  const [activeMobileQuickFilter, setActiveMobileQuickFilter] = useState<
+    string | null
+  >(null);
+  const [mobileQuickSearch, setMobileQuickSearch] = useState<string>("");
 
   // Admin Login and Card Editing States
   const [isAdmin, setIsAdmin] = useState(false);
@@ -7990,6 +7997,59 @@ function CollegesListContent() {
     setSelectedFeesRanges([]);
   };
 
+  // Mobile Quick Filter helper functions
+  const isOptionChecked = (type: string, name: string) => {
+    if (type === "state")
+      return selectedStates.some(
+        (v) => v.toLowerCase() === name.toLowerCase()
+      );
+    if (type === "city")
+      return selectedCities.some(
+        (v) => v.toLowerCase() === name.toLowerCase()
+      );
+    if (type === "course")
+      return selectedCourses.some(
+        (v) => v.toLowerCase() === name.toLowerCase()
+      );
+    if (type === "stream")
+      return selectedStreams.some(
+        (v) => v.toLowerCase() === name.toLowerCase()
+      );
+    if (type === "ownership")
+      return selectedOwnerships.some(
+        (v) => v.toLowerCase() === name.toLowerCase()
+      );
+    if (type === "feesRange") return selectedFeesRanges.includes(name);
+    return false;
+  };
+
+  const clearSingleFilter = (type: string) => {
+    if (type === "state") setSelectedStates([]);
+    else if (type === "city") setSelectedCities([]);
+    else if (type === "course") setSelectedCourses([]);
+    else if (type === "stream") setSelectedStreams([]);
+    else if (type === "ownership") setSelectedOwnerships([]);
+    else if (type === "feesRange") setSelectedFeesRanges([]);
+  };
+
+  const getCategorySelectedCount = (type: string) => {
+    if (type === "state") return selectedStates.length;
+    if (type === "city") return selectedCities.length;
+    if (type === "course") return selectedCourses.length;
+    if (type === "stream") return selectedStreams.length;
+    if (type === "ownership") return selectedOwnerships.length;
+    if (type === "feesRange") return selectedFeesRanges.length;
+    return 0;
+  };
+
+  const getSortShortLabel = () => {
+    if (sortBy === "popularity") return "Popularity";
+    if (sortBy === "rating") return "Rating";
+    if (sortBy === "fees_asc") return "Fees ↑";
+    if (sortBy === "fees_desc") return "Fees ↓";
+    return "Popularity";
+  };
+
   // Trigger admission modal on click of Apply Now/Brochure (opens globally handled modal)
   const openInquiryModal = (stream: string) => {
     if (typeof window !== "undefined") {
@@ -8975,8 +9035,8 @@ function CollegesListContent() {
             </h1>
           </div>
 
-          {/* SORTING SELECT */}
-          <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm self-stretch md:self-auto">
+          {/* SORTING SELECT (Desktop Only) */}
+          <div className="hidden lg:flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm self-stretch md:self-auto">
             <span className="text-[10px] font-black uppercase text-slate-400">
               Sort By:
             </span>
@@ -8990,6 +9050,360 @@ function CollegesListContent() {
               <option value="fees_asc">Fees: Low to High</option>
               <option value="fees_desc">Fees: High to Low</option>
             </select>
+          </div>
+        </div>
+
+        {/* MOBILE / TABLET STICKY HORIZONTAL QUICK FILTERS BAR */}
+        <div className="lg:hidden sticky top-[143px] z-30 bg-[#f8f9fa]/95 backdrop-blur-md pt-2 pb-2.5 -mx-4 px-4 sm:-mx-6 sm:px-6 mb-4 border-b border-slate-200/80 shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-all">
+          <div className="relative">
+            {/* Horizontal Scrollable Pills Row */}
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 scroll-smooth select-none">
+              {/* 1. Sort Pill */}
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveMobileQuickFilter(
+                    activeMobileQuickFilter === "sort" ? null : "sort"
+                  );
+                  setMobileQuickSearch("");
+                }}
+                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all shadow-sm cursor-pointer border ${
+                  activeMobileQuickFilter === "sort"
+                    ? "bg-[#2f3761] text-white border-[#2f3761] ring-2 ring-[#2f3761]/30 font-bold"
+                    : sortBy !== "popularity"
+                    ? "bg-blue-50 text-blue-700 border-blue-400 font-extrabold"
+                    : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 font-semibold"
+                }`}
+              >
+                <ArrowUpDown
+                  className={`w-3.5 h-3.5 flex-shrink-0 ${
+                    activeMobileQuickFilter === "sort"
+                      ? "text-orange-400"
+                      : "text-orange-500"
+                  }`}
+                />
+                <span className="whitespace-nowrap">
+                  Sort: {getSortShortLabel()}
+                </span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    activeMobileQuickFilter === "sort" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* 2. Filter Category Pills (State, City, Course, Stream, Ownership, Total Fees) */}
+              {[
+                { id: "state", label: "State", options: stateOptions, type: "state" },
+                { id: "city", label: "City", options: cityOptions, type: "city" },
+                { id: "course", label: "Course", options: courseOptions, type: "course" },
+                { id: "stream", label: "Stream", options: streamOptions, type: "stream" },
+                { id: "ownership", label: "Ownership", options: ownershipOptions, type: "ownership" },
+                { id: "feesRange", label: "Total Fees", options: feesRangeOptions, type: "feesRange" },
+              ].map((cat) => {
+                const count = getCategorySelectedCount(cat.type);
+                const isOpen = activeMobileQuickFilter === cat.id;
+                const isSelected = count > 0;
+
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => {
+                      setActiveMobileQuickFilter(isOpen ? null : cat.id);
+                      setMobileQuickSearch("");
+                    }}
+                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all shadow-sm cursor-pointer border ${
+                      isOpen
+                        ? "bg-[#2f3761] text-white border-[#2f3761] ring-2 ring-[#2f3761]/30 font-bold"
+                        : isSelected
+                        ? "bg-blue-50 text-blue-800 border-blue-400 font-extrabold"
+                        : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 font-semibold"
+                    }`}
+                  >
+                    <span className="whitespace-nowrap">{cat.label}</span>
+                    {count > 0 && (
+                      <span
+                        className={`w-4 h-4 rounded-full text-[9px] font-black flex items-center justify-center ${
+                          isOpen
+                            ? "bg-white text-[#2f3761]"
+                            : "bg-[#2f3761] text-white"
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    )}
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+
+              {/* Clear All Pill (visible if any filter is active) */}
+              {(selectedStates.length > 0 ||
+                selectedCities.length > 0 ||
+                selectedCourses.length > 0 ||
+                selectedStreams.length > 0 ||
+                selectedOwnerships.length > 0 ||
+                selectedFeesRanges.length > 0 ||
+                sortBy !== "popularity") && (
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-black text-orange-600 bg-orange-50 border border-orange-200 hover:bg-orange-100 transition-all shadow-sm cursor-pointer whitespace-nowrap active:scale-95"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Reset All</span>
+                </button>
+              )}
+            </div>
+
+            {/* Floating Dropdown Card with Click-Outside Backdrop */}
+            {activeMobileQuickFilter && (
+              <>
+                {/* Backdrop Overlay */}
+                <div
+                  className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[1px]"
+                  onClick={() => {
+                    setActiveMobileQuickFilter(null);
+                    setMobileQuickSearch("");
+                  }}
+                />
+
+                {/* Floating Modal / Dropdown Box */}
+                <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-3.5 max-w-sm sm:max-w-md mx-auto animate-in fade-in slide-in-from-top-2 duration-150">
+                  {/* Case A: Sort Options Dropdown */}
+                  {activeMobileQuickFilter === "sort" ? (
+                    <div>
+                      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
+                        <span className="text-xs font-black uppercase text-slate-800 tracking-wide flex items-center gap-1.5">
+                          <ArrowUpDown className="w-3.5 h-3.5 text-orange-500" />
+                          Sort Colleges By
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setActiveMobileQuickFilter(null)}
+                          className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        {[
+                          { id: "popularity", label: "Popularity (Rank)" },
+                          { id: "rating", label: "Rating (Stars)" },
+                          { id: "fees_asc", label: "Fees: Low to High" },
+                          { id: "fees_desc", label: "Fees: High to Low" },
+                        ].map((opt) => {
+                          const isSelected = sortBy === opt.id;
+                          return (
+                            <button
+                              key={opt.id}
+                              type="button"
+                              onClick={() => {
+                                setSortBy(opt.id);
+                                setActiveMobileQuickFilter(null);
+                              }}
+                              className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                                isSelected
+                                  ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                  : "text-slate-700 hover:bg-slate-50 border border-transparent"
+                              }`}
+                            >
+                              <span>{opt.label}</span>
+                              {isSelected && (
+                                <Check className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    /* Case B: Filter Category Options (State, City, Course, Stream, Ownership, Total Fees) */
+                    (() => {
+                      const catConfig: Record<
+                        string,
+                        {
+                          label: string;
+                          type: string;
+                          options: { name: string; count: number }[];
+                        }
+                      > = {
+                        state: {
+                          label: "State",
+                          type: "state",
+                          options: stateOptions,
+                        },
+                        city: {
+                          label: "City",
+                          type: "city",
+                          options: cityOptions,
+                        },
+                        course: {
+                          label: "Course",
+                          type: "course",
+                          options: courseOptions,
+                        },
+                        stream: {
+                          label: "Stream",
+                          type: "stream",
+                          options: streamOptions,
+                        },
+                        ownership: {
+                          label: "Ownership",
+                          type: "ownership",
+                          options: ownershipOptions,
+                        },
+                        feesRange: {
+                          label: "Total Fees",
+                          type: "feesRange",
+                          options: feesRangeOptions,
+                        },
+                      };
+
+                      const current = catConfig[activeMobileQuickFilter];
+                      if (!current) return null;
+
+                      const count = getCategorySelectedCount(current.type);
+                      const filteredOptions = current.options.filter((opt) =>
+                        opt.name
+                          .toLowerCase()
+                          .includes(mobileQuickSearch.toLowerCase().trim())
+                      );
+
+                      return (
+                        <div>
+                          {/* Dropdown Header */}
+                          <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-xs font-black uppercase text-slate-800 tracking-wide">
+                                Select {current.label}
+                              </span>
+                              {count > 0 && (
+                                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                                  {count} selected
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              {count > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    clearSingleFilter(current.type)
+                                  }
+                                  className="text-[10px] font-extrabold text-orange-600 hover:text-orange-700 uppercase tracking-wider hover:underline"
+                                >
+                                  Clear
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActiveMobileQuickFilter(null);
+                                  setMobileQuickSearch("");
+                                }}
+                                className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Quick Search Input (for categories with > 5 options) */}
+                          {current.options.length > 5 && (
+                            <div className="relative mb-2.5">
+                              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+                              <input
+                                type="text"
+                                value={mobileQuickSearch}
+                                onChange={(e) =>
+                                  setMobileQuickSearch(e.target.value)
+                                }
+                                placeholder={`Search ${current.label.toLowerCase()}...`}
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-7 py-1.5 text-xs text-slate-800 outline-none focus:border-blue-500 focus:bg-white transition-all font-semibold"
+                              />
+                              {mobileQuickSearch && (
+                                <button
+                                  type="button"
+                                  onClick={() => setMobileQuickSearch("")}
+                                  className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-slate-400 hover:text-slate-600"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Vertical Scrollable Options (Compact 4-5 items visible) */}
+                          <div className="max-h-48 overflow-y-auto space-y-1 pr-1 custom-filter-scrollbar select-none">
+                            {filteredOptions.length > 0 ? (
+                              filteredOptions.map((opt) => {
+                                const isChecked = isOptionChecked(
+                                  current.type,
+                                  opt.name
+                                );
+                                return (
+                                  <label
+                                    key={opt.name}
+                                    className={`flex items-center justify-between p-2 rounded-xl text-xs cursor-pointer transition-colors ${
+                                      isChecked
+                                        ? "bg-blue-50/90 text-blue-900 font-bold border border-blue-200/80"
+                                        : "hover:bg-slate-50 text-slate-700 font-medium border border-transparent"
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                      <input
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={() =>
+                                          toggleFilter(current.type, opt.name)
+                                        }
+                                        className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer flex-shrink-0"
+                                      />
+                                      <span className="truncate">
+                                        {opt.name}
+                                      </span>
+                                    </div>
+                                    <span className="text-[10px] text-slate-400 font-semibold ml-2 flex-shrink-0">
+                                      ({opt.count})
+                                    </span>
+                                  </label>
+                                );
+                              })
+                            ) : (
+                              <div className="py-6 text-center text-xs text-slate-400 font-medium">
+                                No options match "{mobileQuickSearch}"
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Done / Apply Button */}
+                          <div className="mt-3 pt-2.5 border-t border-slate-100">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveMobileQuickFilter(null);
+                                setMobileQuickSearch("");
+                              }}
+                              className="w-full py-2 bg-[#2f3761] hover:bg-[#232a4e] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-sm active:scale-95 text-center cursor-pointer"
+                            >
+                              Done • View Colleges ({totalCount})
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })()
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
 
