@@ -2370,7 +2370,7 @@ export default function LayoutWrapper({
                                     setActiveMegaMenu(null);
                                     setIsAlertOpen(true);
                                   }}
-                                  className="py-1.5 px-1 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-[10px] text-center transition-all shadow-sm active:scale-95 flex items-center justify-center"
+                                  className="py-1.5 px-1 rounded-xl bg-[#2f3761] hover:bg-[#232a4e] text-white font-bold text-[10px] text-center transition-all shadow-sm active:scale-95 flex items-center justify-center"
                                 >
                                   Apply Now
                                 </button>

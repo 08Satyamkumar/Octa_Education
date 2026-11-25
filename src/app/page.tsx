@@ -3103,7 +3103,7 @@ export default function HomePage() {
                         setModalType("general");
                         setShowInquiryModal(true);
                       }}
-                      className="flex-1 py-2 px-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-[11px] rounded-xl transition-all shadow-md shadow-orange-500/15 active:scale-95 text-center cursor-pointer"
+                      className="flex-1 py-2 px-2 bg-[#2f3761] hover:bg-[#232a4e] text-white font-bold text-[11px] rounded-xl transition-all shadow-md shadow-[#2f3761]/20 active:scale-95 text-center cursor-pointer"
                     >
                       Apply Now
                     </button>
@@ -3266,7 +3266,7 @@ export default function HomePage() {
                         setModalType("general");
                         setShowInquiryModal(true);
                       }}
-                      className="flex-1 py-2 px-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-[11px] rounded-xl transition-all shadow-md shadow-orange-500/15 active:scale-95 text-center cursor-pointer"
+                      className="flex-1 py-2 px-2 bg-[#2f3761] hover:bg-[#232a4e] text-white font-bold text-[11px] rounded-xl transition-all shadow-md shadow-[#2f3761]/20 active:scale-95 text-center cursor-pointer"
                     >
                       Apply Now
                     </button>

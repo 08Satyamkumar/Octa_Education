@@ -9500,7 +9500,7 @@ function CollegesListContent() {
                                   if (!loggedInUser) return;
                                   openInquiryModal(college.stream);
                                 }}
-                                className="flex items-center justify-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-[9px] md:text-[10px] font-black uppercase tracking-wider rounded-xl transition-all shadow-md shadow-orange-500/10 active:scale-95 cursor-pointer w-1/2 lg:w-full text-center hover:shadow-[0_4px_15px_rgba(249,115,22,0.25)]"
+                                className="flex items-center justify-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-[#2f3761] hover:bg-[#232a4e] text-white text-[9px] md:text-[10px] font-black uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#2f3761]/20 active:scale-95 cursor-pointer w-1/2 lg:w-full text-center hover:shadow-[0_4px_15px_rgba(47,55,97,0.3)]"
                               >
                                 <FileText className="w-3.5 h-3.5" />
                                 Apply / Brochure
