@@ -32,6 +32,7 @@ import {
   LogOut,
   Edit,
   Loader2,
+  TrendingUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -9289,43 +9290,42 @@ function CollegesListContent() {
                                   )}
                                 </div>
 
-                                {/* Rank indicator (Shiksha style) */}
-                                {college.nirfRank ? (
-                                  <div className="text-left lg:text-center">
-                                    <span className="block font-outfit font-black text-base lg:text-lg text-slate-800 leading-tight">
-                                      #{college.nirfRank}
-                                    </span>
-                                    <span className="block text-[8px] font-black text-orange-600 uppercase tracking-widest">
-                                      NIRF Rank
-                                    </span>
+                                {/* Rank and Rating indicator */}
+                                <div className="flex flex-col items-start lg:items-center gap-1.5">
+                                  {college.nirfRank ? (
+                                    <div className="text-left lg:text-center">
+                                      <span className="block font-outfit font-black text-base lg:text-lg text-slate-800 leading-tight">
+                                        #{college.nirfRank}
+                                      </span>
+                                      <span className="block text-[8px] font-black text-orange-600 uppercase tracking-widest">
+                                        NIRF Rank
+                                      </span>
+                                    </div>
+                                  ) : null}
+
+                                  {/* Rating badge - Cleanly stacked under NIRF on BOTH mobile and desktop */}
+                                  <div className="inline-flex items-center gap-1 bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-lg text-[9.5px] font-black shadow-xs">
+                                    <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                                    <span>{college.rating}</span>
+                                    <span className="text-[8px] text-amber-600/80 font-bold uppercase">/ 5</span>
                                   </div>
-                                ) : (
-                                  <div className="text-left lg:text-center">
-                                    <span className="block font-outfit font-black text-base lg:text-lg text-slate-800 leading-tight">
-                                      ★ {college.rating}
-                                    </span>
-                                    <span className="block text-[8px] font-black text-amber-600 uppercase tracking-widest">
-                                      Rating
-                                    </span>
-                                  </div>
-                                )}
+                                </div>
                               </div>
 
-                              {/* Mobile view Rating/NIRF fallback badge */}
-                              <div className="lg:hidden flex items-center gap-2">
-                                <span className="bg-amber-50 text-amber-700 border border-amber-100/50 px-2 py-0.5 rounded-lg text-[9px] font-extrabold flex items-center gap-0.5">
-                                  ★ {college.rating}
-                                </span>
-                                <span className="bg-orange-50 text-orange-700 border border-orange-100/50 px-2 py-0.5 rounded-lg text-[9px] font-extrabold">
-                                  {college.accreditation}
-                                </span>
-                              </div>
+                              {/* Mobile view Accreditation badge with clean breathing room */}
+                              {college.accreditation && (
+                                <div className="lg:hidden flex-1 max-w-[200px] text-right">
+                                  <span className="inline-block bg-orange-50 text-orange-700 border border-orange-200/70 px-2.5 py-1 rounded-xl text-[9px] font-extrabold leading-tight shadow-xs">
+                                    {college.accreditation}
+                                  </span>
+                                </div>
+                              )}
                             </div>
 
                             {/* CENTER PANEL: COLLEGE DETAILS (Shiksha + GetMyUni style hybrid) */}
                             <div className="col-span-12 lg:col-span-6 flex flex-col space-y-3 mt-4 lg:mt-0">
-                              {/* Title and Location */}
-                              <div className="space-y-1">
+                              {/* Title, Location & Placement Pill */}
+                              <div className="space-y-1.5">
                                 <Link
                                   href={`/colleges/${college.slug}`}
                                   className="font-outfit font-black text-sm md:text-base text-slate-800 hover:text-orange-500 hover:underline leading-snug transition-colors line-clamp-1"
@@ -9357,6 +9357,23 @@ function CollegesListContent() {
                                     </span>
                                   ) : null}
                                 </div>
+
+                                {/* Placement Package Highlight Pill (Idea 1) */}
+                                {(college.highest_package || college.average_package) && (
+                                  <div className="inline-flex flex-wrap items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[10px] font-black shadow-xs self-start">
+                                    <TrendingUp className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                                    <span>Placement:</span>
+                                    {college.average_package && (
+                                      <span className="text-emerald-700 font-extrabold">Avg: {college.average_package}</span>
+                                    )}
+                                    {college.average_package && college.highest_package && (
+                                      <span className="text-emerald-400">•</span>
+                                    )}
+                                    {college.highest_package && (
+                                      <span className="text-emerald-900 font-black">Highest: {college.highest_package}</span>
+                                    )}
+                                  </div>
+                                )}
                               </div>
 
                               {/* Short Description */}
@@ -9366,47 +9383,75 @@ function CollegesListContent() {
                                 {college.description}
                               </p>
 
-                              {/* Metadata Grid (GetMyUni inspired, custom modern border box) */}
+                              {/* Metadata Grid (4 Clickable Boxes leading directly to College Detail Sections) */}
                               <div className="grid grid-cols-2 gap-2 md:gap-3.5 select-none">
                                 {/* Courses */}
-                                <div className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/35 hover:shadow-[0_8px_20px_rgba(249,115,22,0.04)] hover:scale-[1.01] transition-all duration-300 space-y-0.5 md:space-y-1">
-                                  <p className="text-[7px] md:text-[7.5px] text-slate-400 font-black uppercase tracking-widest">
-                                    Courses
-                                  </p>
-                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-700 uppercase line-clamp-1">
+                                <Link
+                                  href={`/colleges/${college.slug}#courses`}
+                                  className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-0.5 md:space-y-1 group/box cursor-pointer block"
+                                  title="View all courses and specializations"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <p className="text-[7px] md:text-[7.5px] text-slate-400 group-hover/box:text-orange-600 font-black uppercase tracking-widest transition-colors">
+                                      Courses
+                                    </p>
+                                    <ChevronRight className="w-2.5 h-2.5 text-orange-500 opacity-0 group-hover/box:opacity-100 transition-opacity" />
+                                  </div>
+                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-700 uppercase line-clamp-1 group-hover/box:text-orange-600 transition-colors">
                                     {college.courses.join(", ")}
                                   </p>
-                                </div>
+                                </Link>
 
                                 {/* Exams */}
-                                <div className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/35 hover:shadow-[0_8px_20px_rgba(249,115,22,0.04)] hover:scale-[1.01] transition-all duration-300 space-y-0.5 md:space-y-1">
-                                  <p className="text-[7px] md:text-[7.5px] text-slate-400 font-black uppercase tracking-widest">
-                                    Exams Accepted
-                                  </p>
-                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-700 line-clamp-1">
+                                <Link
+                                  href={`/colleges/${college.slug}#admissions`}
+                                  className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-0.5 md:space-y-1 group/box cursor-pointer block"
+                                  title="View entrance exams and eligibility"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <p className="text-[7px] md:text-[7.5px] text-slate-400 group-hover/box:text-orange-600 font-black uppercase tracking-widest transition-colors">
+                                      Exams Accepted
+                                    </p>
+                                    <ChevronRight className="w-2.5 h-2.5 text-orange-500 opacity-0 group-hover/box:opacity-100 transition-opacity" />
+                                  </div>
+                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-700 line-clamp-1 group-hover/box:text-orange-600 transition-colors">
                                     {college.exams.join(", ")}
                                   </p>
-                                </div>
+                                </Link>
 
                                 {/* Fees */}
-                                <div className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/35 hover:shadow-[0_8px_20px_rgba(249,115,22,0.04)] hover:scale-[1.01] transition-all duration-300 space-y-0.5 md:space-y-1">
-                                  <p className="text-[7px] md:text-[7.5px] text-slate-400 font-black uppercase tracking-widest">
-                                    Tuition Fees
-                                  </p>
-                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-orange-600 line-clamp-1">
+                                <Link
+                                  href={`/colleges/${college.slug}#fees`}
+                                  className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-0.5 md:space-y-1 group/box cursor-pointer block"
+                                  title="View detailed fee structure"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <p className="text-[7px] md:text-[7.5px] text-slate-400 group-hover/box:text-orange-600 font-black uppercase tracking-widest transition-colors">
+                                      Tuition Fees
+                                    </p>
+                                    <ChevronRight className="w-2.5 h-2.5 text-orange-500 opacity-0 group-hover/box:opacity-100 transition-opacity" />
+                                  </div>
+                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-orange-600 line-clamp-1 font-bold">
                                     {college.feeRange}
                                   </p>
-                                </div>
+                                </Link>
 
                                 {/* Accreditation */}
-                                <div className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/35 hover:shadow-[0_8px_20px_rgba(249,115,22,0.04)] hover:scale-[1.01] transition-all duration-300 space-y-0.5 md:space-y-1">
-                                  <p className="text-[7px] md:text-[7.5px] text-slate-400 font-black uppercase tracking-widest">
-                                    Accreditation
-                                  </p>
-                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-600 uppercase line-clamp-1">
+                                <Link
+                                  href={`/colleges/${college.slug}#overview`}
+                                  className="p-2 md:p-3 bg-slate-50/60 border border-slate-100 rounded-xl md:rounded-2xl hover:bg-white hover:border-orange-500/50 hover:shadow-md hover:scale-[1.02] transition-all duration-300 space-y-0.5 md:space-y-1 group/box cursor-pointer block"
+                                  title="View university recognition & approvals"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <p className="text-[7px] md:text-[7.5px] text-slate-400 group-hover/box:text-orange-600 font-black uppercase tracking-widest transition-colors">
+                                      Accreditation
+                                    </p>
+                                    <ChevronRight className="w-2.5 h-2.5 text-orange-500 opacity-0 group-hover/box:opacity-100 transition-opacity" />
+                                  </div>
+                                  <p className="font-outfit font-black text-[9px] md:text-[10px] text-slate-600 uppercase line-clamp-1 group-hover/box:text-orange-600 transition-colors">
                                     {college.accreditation}
                                   </p>
-                                </div>
+                                </Link>
                               </div>
                             </div>
 
