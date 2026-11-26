@@ -3889,7 +3889,7 @@ export default function LayoutWrapper({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 350, damping: 28 }}
-              className="w-full max-w-[850px] max-h-[92vh] md:max-h-none overflow-y-auto md:overflow-visible bg-white rounded-3xl shadow-2xl grid grid-cols-1 md:grid-cols-12 relative border border-slate-100"
+              className="w-full max-w-[850px] max-h-[92vh] md:max-h-none overflow-y-auto md:overflow-hidden bg-white rounded-3xl shadow-2xl grid grid-cols-1 md:grid-cols-12 relative border border-slate-100"
             >
               {/* Close Button */}
               <button
@@ -3900,7 +3900,7 @@ export default function LayoutWrapper({
               </button>
 
               {/* LEFT SIDE PANEL (Saffron Banner - col-span-5) */}
-              <div className="col-span-12 md:col-span-5 bg-gradient-to-br from-[#343c68] via-[#242b4d] to-[#161a30] text-white p-6 md:p-8 flex flex-col justify-between relative overflow-hidden select-none border-r border-white/10">
+              <div className="col-span-12 md:col-span-5 bg-gradient-to-br from-[#343c68] via-[#242b4d] to-[#161a30] text-white p-6 md:p-8 flex flex-col justify-between relative overflow-hidden select-none border-r border-white/10 rounded-t-3xl md:rounded-tr-none md:rounded-l-3xl">
                 {/* Background decorative blobs */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
                 <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-black/20 rounded-full blur-2xl" />
