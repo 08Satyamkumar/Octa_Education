@@ -296,15 +296,32 @@ export default function LayoutWrapper({
     setIsAlertSubscribed(true);
   };
 
-  // Auto-open admission alert popup temporarily disabled per developer request
-  // useEffect(() => {
-  //   if (!isAlertOpen && !isAlertSubscribed) {
-  //     const timer = setTimeout(() => {
-  //       setIsAlertOpen(true);
-  //     }, 15000);
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [isAlertOpen, isAlertSubscribed]);
+  // Auto-open admission alert popup after 15 seconds
+  useEffect(() => {
+    if (!isAlertOpen && !isAlertSubscribed) {
+      const timer = setTimeout(() => {
+        setIsAlertOpen(true);
+      }, 15000);
+      return () => clearTimeout(timer);
+    }
+  }, [isAlertOpen, isAlertSubscribed]);
+
+  // Listen for openAdmissionAlert event across the site
+  useEffect(() => {
+    const handleOpenAdmissionAlert = (e: any) => {
+      if (e?.detail?.stream) {
+        setAlertStream(e.detail.stream);
+      }
+      setIsAlertOpen(true);
+    };
+    window.addEventListener("openAdmissionAlert", handleOpenAdmissionAlert);
+    return () => {
+      window.removeEventListener(
+        "openAdmissionAlert",
+        handleOpenAdmissionAlert
+      );
+    };
+  }, []);
 
   // Fetch top PGDM colleges dynamically for the PGDM mega menu dropdown
   useEffect(() => {
